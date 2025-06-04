@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etlpat.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.User">
+        <id property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="phone" column="phone"/>
+        <result property="identityNum" column="identity_num"/>
+        <result property="address" column="address"/>
+        <result property="role" column="role"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="integral" column="integral"/>
+        <result property="credit" column="credit"/>
+        <result property="avatar" column="avatar"/>
+        <result property="realName" column="real_name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_name
+        ,password,nick_name,phone,identity_num,address,
+        role,create_time,update_time,integral,credit,
+        avatar,real_name
+    </sql>
+    <select id="selectByUserName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user
+        where
+        user_name = #{userName,jdbcType=VARCHAR}
+    </select>
+    <update id="updatePasswordByUserName">
+        update tb_user
+        set password = #{password,jdbcType=VARCHAR}
+        where user_name = #{userName,jdbcType=VARCHAR}
+    </update>
+</mapper>

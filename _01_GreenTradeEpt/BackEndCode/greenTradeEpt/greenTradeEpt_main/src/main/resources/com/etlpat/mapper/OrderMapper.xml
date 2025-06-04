@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etlpat.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.Order">
+        <id property="orderId" column="order_id"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="content" column="content"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="type" column="type"/>
+        <result property="picture" column="picture"/>
+        <result property="ownName" column="own_name"/>
+        <result property="cooperationName" column="cooperation_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_id
+        ,title,price,content,order_status,type,
+        picture,own_name,cooperation_name,create_time,update_time,
+        address
+    </sql>
+</mapper>
