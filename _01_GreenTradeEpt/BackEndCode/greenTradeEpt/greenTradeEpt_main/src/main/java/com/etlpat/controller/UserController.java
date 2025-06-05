@@ -30,15 +30,24 @@ public class UserController {
 
     // 用户注册
     @PostMapping("/register")// 请求方式为post
-    public Result register(String username, String password) {
-        // ①查询该用户是否已经注册
+    public Result register(String username, String password1, String password2) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password1) || StringUtils.isEmpty(password2)) {
+            return Result.error("注册信息不能为空");
+        }
+
+        // 查询该用户是否已经注册
         User user = userService.getUserByUsername(username);
         if (user != null) {// 若用户已经被注册
             return Result.error("用户名已被占用");
         }
 
-        // ②注册该用户
-        userService.register(username, password);
+        // 判断两次密码是否不一致
+        if (!password1.equals(password2)) {
+            return Result.error("两次密码不一致");
+        }
+
+        // 注册该用户
+        userService.register(username, password1);
         return Result.success();
     }
 
@@ -46,6 +55,10 @@ public class UserController {
     // 用户登录
     @PostMapping("/login")
     public Result login(String username, String password) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            return Result.error("登录信息不能为空");
+        }
+
         // ①根据用户名获取用户
         User user = userService.getUserByUsername(username);
         if (user == null) {// 若用户不存在

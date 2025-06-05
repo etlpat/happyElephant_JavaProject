@@ -32,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {// 参数为注册器
         registry.addInterceptor(jwtInterceptor)// 添加jwt令牌拦截器
-                .excludePathPatterns("/user/register", "/user/login");// 注册和登录方法不拦截
+                .excludePathPatterns("/user/register", "/user/login"// 注册和登录等方法不拦截
+                        , "/order/getPage/{pageNum}", "/order/getContent");
     }
 }

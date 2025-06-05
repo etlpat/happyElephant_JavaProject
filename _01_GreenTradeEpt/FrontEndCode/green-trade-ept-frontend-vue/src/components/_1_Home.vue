@@ -24,7 +24,7 @@
                         <span class="type">[{{ item.type == 'goods' ? '供' : '需' }}]</span></label>
                     <label class="content"><i class="el-icon-shopping-bag-1"></i>&nbsp;商品介绍：{{ item.content }}</label>
                     <label class="price"><i class="el-icon-shopping-cart-1"></i>&nbsp;￥{{ item.price.toFixed(2)
-                    }}</label>
+                        }}</label>
                     <label class="nameAndTime">
                         <i class="el-icon-user"></i>&nbsp;{{ item.ownName }}&nbsp;&nbsp;&nbsp;
                         <i class="el-icon-timer"></i>&nbsp;{{ item.createTime }}
@@ -94,7 +94,7 @@ export default {
     display: flex;
 
     .left {
-        width: 60%;
+        width: 61%;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -138,6 +138,8 @@ export default {
                 padding-top: 3px;
                 padding-bottom: 3px;
                 padding-left: 10px;
+                padding-right: 10px;
+
 
                 label {
                     display: flex;
@@ -157,6 +159,7 @@ export default {
 
                 .content {
                     font-size: 15px;
+                    text-align: left;
                 }
 
                 .price {
@@ -179,14 +182,14 @@ export default {
     }
 
     .right {
-        width: 22%;
+        width: 24%;
         height: 100vh;
         /* 设置固定高度为视口高度 */
         max-height: 78vh;
         /* 防止溢出 */
         border-radius: 10px;
         border: 0.5px solid gainsboro;
-        margin-left: 7%;
+        margin-left: 6%;
         overflow-y: auto;
         /* 启用垂直滚动条（内容溢出时） */
         position: sticky;

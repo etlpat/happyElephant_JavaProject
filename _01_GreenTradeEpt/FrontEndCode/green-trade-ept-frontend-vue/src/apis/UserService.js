@@ -7,3 +7,10 @@ export async function login(username, password) {
   let result = (await axios.post("/user/login", { username, password })).data;
   return result;
 }
+
+// 注册
+export async function register(username, password1, password2) {
+  return (
+    await axios.post("/user/register", { username, password1, password2 })
+  ).data;
+}

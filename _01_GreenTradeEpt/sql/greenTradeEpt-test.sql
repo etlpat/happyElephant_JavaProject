@@ -2,6 +2,7 @@
 DESC tb_user;
 DELETE FROM `tb_user`;
 SELECT * FROM tb_user;
+DELETE FROM tb_user WHERE user_name = '4';
 
 
 # 2.订单表

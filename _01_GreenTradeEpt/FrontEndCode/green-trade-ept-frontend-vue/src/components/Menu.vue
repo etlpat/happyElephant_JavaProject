@@ -13,8 +13,8 @@
                 </div>
                 <div>
                     <!-- 为登录/注册绑定事件 -->
-                    <a @click="login()">登录</a> |
-                    <a>注册</a>
+                    <a @click="login">登录</a> |
+                    <a @click="register">注册</a>
                 </div>
             </div>
             <!-- 2.顶部菜单模块 -->
@@ -85,12 +85,17 @@ export default {
         login() {
             // 跳转到login路径
             this.$router.push("/login")
+        },
+
+        register() {
+            // 跳转到register路径
+            this.$router.push("/register")
         }
+
     }, mounted() {// 钩子函数
-        // 获取route传来的参数
-        let siv = this.$route.query.setIsVisible;
-        if (this.setIsVisible != null) {
-            this.setIsVisible = siv;
+        // 若token存在，设置setIsVisible为true
+        if (localStorage.getItem("Authorization") != null && localStorage.getItem("Authorization") != "") {
+            this.setIsVisible = true;
         }
 
         // 默认开启首页内容

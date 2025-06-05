@@ -23,5 +23,15 @@ newAxios.interceptors.request.use(
   }
 );
 
+// 添加响应拦截器
+newAxios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
 // 默认暴露newAxios对象
 export default newAxios;
