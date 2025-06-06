@@ -54,9 +54,12 @@ export default {
 
             } else {// 登录成功
                 this.error = '';
-                // 保存token
                 let token = result.data;// 获取token(JWT令牌)
-                localStorage.setItem("Authorization", token);// 将token令牌存到localStorage中
+
+                // 将token和登录用户存于vuex中（会同时存到localStorage中）
+                this.$store.commit("changeLoginUser", this.form.username);
+                this.$store.commit("changeAuthorization", token);
+
 
                 // 是否记忆账户信息（存于localStorage）
                 if (this.form.remember) {// 若remember为true
@@ -67,10 +70,6 @@ export default {
                     localStorage.removeItem("loginUsername");
                     localStorage.removeItem("loginPassword");
                 }
-
-                // 将token和登录用户存于vuex中
-                this.$store.commit("changeLoginUser", this.form.username);
-                this.$store.commit("changeAuthorization", token);
 
                 this.$router.push("/menu");// 跳转到首页
             }

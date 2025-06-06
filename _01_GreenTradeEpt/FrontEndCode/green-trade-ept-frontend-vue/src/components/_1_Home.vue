@@ -15,7 +15,7 @@
                 <el-link type="primary" @click="keyword = '蜜桃'">蜜桃</el-link>
             </div>
             <!-- 分页订单列表 -->
-            <li v-for="item in pageList" :key="item.orderId">
+            <li v-for="item in pageList" :key="item.orderId" @click="showGoodsInfo(item)">
                 <!-- 商品图片 -->
                 <img :src="'orderImgs/' + item.picture" alt="">
                 <!-- 商品信息 -->
@@ -23,11 +23,12 @@
                     <label class="title">{{ item.title }}&nbsp;
                         <span class="type">[{{ item.type == 'goods' ? '供' : '需' }}]</span></label>
                     <label class="content"><i class="el-icon-shopping-bag-1"></i>&nbsp;商品介绍：{{ item.content }}</label>
-                    <label class="price"><i class="el-icon-shopping-cart-1"></i>&nbsp;￥{{ item.price.toFixed(2)
-                        }}</label>
+                    <label class="price">
+                        <i class="el-icon-shopping-cart-1"></i>&nbsp;￥{{ item.price.toFixed(2) }}
+                    </label>
                     <label class="nameAndTime">
                         <i class="el-icon-user"></i>&nbsp;{{ item.ownName }}&nbsp;&nbsp;&nbsp;
-                        <i class="el-icon-timer"></i>&nbsp;{{ item.createTime }}
+                        <i class="el-icon-timer"></i>&nbsp;{{ $dateUtils.formatDateTime(item.createTime) }}
                     </label>
                 </div>
             </li>
@@ -73,7 +74,16 @@ export default {
             const result = await getPage(this.pageNum, this.pageSize, this.keyword);
             this.pageBean = result.data;
             this.pageList = result.data.items;
+        },
+
+        // 展示商品详细信息
+        async showGoodsInfo(good) {// 接收商品对象
+            this.$router.push({
+                name: "goodInfo",// 使用name切换页面，目标页面才能接收params参数！
+                params: { good: JSON.stringify(good) } // 将对象转为字符串
+            });
         }
+
     },
     async mounted() {
         // 初始进行无条件搜索
@@ -124,6 +134,7 @@ export default {
             list-style: none;
             border-radius: 10px;
             border: 0.5px solid gainsboro;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 
             img {
                 width: 120px;

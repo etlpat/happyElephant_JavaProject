@@ -8,16 +8,6 @@
 
 <script>
 export default {
-  mounted() {
-    // 监听页面关闭/刷新
-    window.addEventListener('beforeunload', () => {
-      localStorage.removeItem('Authorization');// 每次关闭页面，删除token令牌（暂时替代退登功能）
-    });
-  },
-  // 可选：移除监听（避免内存泄漏）
-  beforeUnmount() {
-    window.removeEventListener('beforeunload', () => { });
-  }
 };
 </script>
 

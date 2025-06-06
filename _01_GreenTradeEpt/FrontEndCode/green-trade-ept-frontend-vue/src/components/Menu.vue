@@ -93,8 +93,8 @@ export default {
         }
 
     }, mounted() {// 钩子函数
-        // 若token存在，设置setIsVisible为true
-        if (localStorage.getItem("Authorization") != null && localStorage.getItem("Authorization") != "") {
+        // 若token存在vuex中，设置setIsVisible为true（登录后才可见）
+        if (this.$store.state.authorization) {
             this.setIsVisible = true;
         }
 
