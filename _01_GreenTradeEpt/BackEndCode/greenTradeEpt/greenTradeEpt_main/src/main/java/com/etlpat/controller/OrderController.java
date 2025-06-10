@@ -32,6 +32,18 @@ public class OrderController {
     }
 
 
+    // 根据关键词和类型，获取分页数据
+    @GetMapping("/getPageByType/{pageNum}")
+    public Result<PageBean<Order>> getPageOrdersByKeywordAndType(@PathVariable Integer pageNum, Integer pageSize, String keyword, String type) {
+        if (pageNum == null || pageSize == null || pageNum < 1 || pageSize < 1) {
+            pageNum = 1;
+            pageSize = 10;
+        }
+        PageBean<Order> orders = orderService.getPageOrdersByKeywordAndType(pageNum, pageSize, keyword, type);
+        return Result.success(orders);
+    }
+
+
     // 获取全部评论
     @GetMapping("/getContent")
     public Result<List<String>> getContent() {

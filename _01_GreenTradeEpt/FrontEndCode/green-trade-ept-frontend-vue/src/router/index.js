@@ -37,6 +37,11 @@ const routes = [
         component: () => import("../views/_2_CommoditySourceView.vue"),
       },
       {
+        path: "commodityInfo",
+        name: "commodityInfo",
+        component: () => import("../views/_2.1_CommodityInfo.vue"),
+      },
+      {
         path: "purchaseDemand",
         name: "purchaseDemand",
         component: () => import("../views/_3_PurchaseDemandView.vue"),
@@ -47,9 +52,19 @@ const routes = [
         component: () => import("../views/_4_AgriculturalKnowledgeView.vue"),
       },
       {
+        path: "knowledgeInfo",
+        name: "knowledgeInfo",
+        component: () => import("../views/_4.1_KnowledgeInfo.vue"),
+      },
+      {
         path: "expertGuidance",
         name: "expertGuidance",
         component: () => import("../views/_5_ExpertGuidanceView.vue"),
+      },
+      {
+        path: "moreExpert",
+        name: "moreExpert",
+        component: () => import("../views/_5.1_MoreExpert.vue"),
       },
       {
         path: "shoppingCart",

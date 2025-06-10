@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etlpat.mapper.QuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.Question">
+            <id property="id" column="id" />
+            <result property="expertName" column="expert_name" />
+            <result property="questioner" column="questioner" />
+            <result property="phone" column="phone" />
+            <result property="plantName" column="plant_name" />
+            <result property="title" column="title" />
+            <result property="question" column="question" />
+            <result property="answer" column="answer" />
+            <result property="status" column="status" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,expert_name,questioner,phone,plant_name,title,
+        question,answer,status
+    </sql>
+</mapper>

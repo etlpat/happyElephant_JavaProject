@@ -1,13 +1,14 @@
 <!-- 2.商品货源模块 -->
 <template>
-    <div>
-        <h1>商品货源</h1>
-    </div>
+    <commodity-source></commodity-source>
 </template>
 
 <script>
+import CommoditySource from "../components/_2_CommoditySource.vue"
 export default {
-
+    components: {// 注册组件
+        CommoditySource,
+    }
 }
 </script>
 

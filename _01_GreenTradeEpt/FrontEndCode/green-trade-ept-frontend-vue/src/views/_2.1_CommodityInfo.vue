@@ -1,6 +1,6 @@
-<!-- 显示商品的详细信息 -->
+<!-- 显示商品的需求信息 -->
 <template>
-    <div id="goodInfo" v-if="good">
+    <div id="commodityInfo" v-if="good">
         <!-- 商品图片 -->
         <img :src="'orderImgs/' + good.picture" alt="" class="goodImg">
         <!-- 商品信息 -->
@@ -11,21 +11,24 @@
                     <span class="type">[{{ good.type == 'goods' ? '供' : '需' }}]</span>
                 </label>
                 <div class="content">
-                    <label class="introduce"><i class="el-icon-shopping-bag-1"></i>简介：</label>
+                    <label class="introduce"><i class="el-icon-sell"></i>需求：</label>
                     <label>{{ good.content }}</label>
                 </div>
             </div>
             <div class="down">
-                <label class="price">
-                    <i class="el-icon-shopping-cart-1"></i>&nbsp;￥{{ good.price.toFixed(2) }}
-                </label>
+                <!-- tooltip文字提示框（鼠标悬浮在上方，则提示文字） -->
+                <el-tooltip class="item" effect="dark" :content="buyerInfo" placement="top-start">
+                    <label class="buyerInfo">
+                        <i class="el-icon-warning"></i>&nbsp;买家信息
+                    </label>
+                </el-tooltip>
                 <label class="own">
                     <i class="el-icon-user"></i>&nbsp;{{ good.ownName }}
                 </label>
                 <label class="timer">
-                    <i class="el-icon-timer"></i>&nbsp;发布时间:{{ $dateUtils.formatDate(good.createTime)
+                    <i class="el-icon-timer"></i>&nbsp;发布日期:{{ $dateUtils.formatDate(good.createTime)
                     }}&nbsp;&nbsp;&nbsp;
-                    <i class="el-icon-time"></i>&nbsp;更新时间:{{ $dateUtils.formatDate(good.updateTime) }}
+                    <i class="el-icon-time"></i>&nbsp;更新日期:{{ $dateUtils.formatDate(good.updateTime) }}
                 </label>
                 <div class="bottom">
                     <div class="icon">
@@ -43,7 +46,6 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <el-button type="primary">加入购物车</el-button>
                         <el-button type="primary" @click="exit">返回上一页</el-button>
                     </div>
                 </div>
@@ -56,10 +58,12 @@
 </template>
 
 <script>
+import DateUtils from "../util/DateUtils.js"
 export default {
     data() {
         return {
             good: null,// 该页面的商品对象
+            buyerInfo: "",// 买家信息
         }
     },
     methods: {
@@ -70,13 +74,17 @@ export default {
     mounted() {
         if (this.$route.params.good) {
             this.good = JSON.parse(this.$route.params.good);// 接收传来的商品数据
+
+            this.buyerInfo = "买家姓名：" + this.good.ownName
+                + "； 买家地址：" + this.good.address
+                + "； 发布时间：" + DateUtils.formatDateTime(this.good.createTime);
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-#goodInfo {
+#commodityInfo {
     width: 75%;
     height: 100%;
     box-sizing: border-box;
@@ -85,7 +93,8 @@ export default {
     border-radius: 10px;
     border: 0.5px solid gainsboro;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    background-color: rgba(0, 255, 0, 0.07);
+    background-color: rgba(255, 255, 0, 0.07);
+
 
     .goodImg {
         width: 280px;
@@ -140,7 +149,7 @@ export default {
             align-items: flex-start;
             margin-left: 5px;
 
-            .price {
+            .buyerInfo {
                 font-size: 18px;
                 color: red;
             }
@@ -186,7 +195,7 @@ export default {
                 .btn {
                     display: flex;
                     align-items: center;
-                    margin-left: 15px;
+                    margin-left: 25px;
 
                     .el-button {
                         margin-right: 5px;

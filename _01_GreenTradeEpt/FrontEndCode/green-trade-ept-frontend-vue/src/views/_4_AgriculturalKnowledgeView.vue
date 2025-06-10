@@ -1,13 +1,14 @@
 <!-- 4.农业知识模块 -->
 <template>
-    <div>
-        <h1>农业知识</h1>
-    </div>
+    <knowledge></knowledge>
 </template>
 
 <script>
+import Knowledge from "../components/_4_Knowledge.vue"
 export default {
-
+    components: {// 注册组件
+        Knowledge,
+    }
 }
 </script>
 

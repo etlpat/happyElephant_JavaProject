@@ -107,6 +107,8 @@ INSERT INTO `tb_bank_user` VALUES ('buser03', 1001, '$2a$10$AC1gCsk1V5Ov7n.zvkxx
 -- ----------------------------
 -- Table structure for tb_discuss
 -- ----------------------------
+# =============================================================================================================================================================================================================================================================================================
+/*
 DROP TABLE IF EXISTS `tb_discuss`;
 CREATE TABLE `tb_discuss`  (
   `discuss_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -114,13 +116,20 @@ CREATE TABLE `tb_discuss`  (
   `own_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `content` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_time` DATETIME(0) NOT NULL,
-  PRIMARY KEY (`discuss_id`) USING BTREE
+  PRIMARY KEY (`discuss_id`) USING BTREE,
+  INDEX `idx_knowledge_id` (`knowledge_id`),  -- 为外键字段创建索引
+  CONSTRAINT `fk_discuss_knowledge` 
+    FOREIGN KEY (`knowledge_id`) 
+    REFERENCES `tb_knowledge` (`knowledge_id`)
+    ON DELETE CASCADE  -- 当知识记录删除时，自动删除相关评论
+    ON UPDATE CASCADE  -- 当知识ID更新时，自动更新相关评论的knowledge_id
 ) ENGINE = INNODB AUTO_INCREMENT = 109 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Records of tb_discuss
 -- ----------------------------
-INSERT INTO `tb_discuss` VALUES (100, 100, 'wyn', '评论内容123', '2022-03-29 14:35:06');
+/*
+INSERT INTO `tb_discuss` VALUES (100, 24, 'wyn', '评论内容123', '2022-03-29 14:35:06');
 INSERT INTO `tb_discuss` VALUES (101, 22, 'zhangxukun', '1111', '2022-07-22 09:56:49');
 INSERT INTO `tb_discuss` VALUES (102, 22, 'admin', '22', '2022-07-29 14:59:21');
 INSERT INTO `tb_discuss` VALUES (103, 22, 'admin', '44444444', '2022-07-29 15:31:06');
@@ -129,10 +138,12 @@ INSERT INTO `tb_discuss` VALUES (105, 23, 'gaoge', '不错不错', '2022-08-31 1
 INSERT INTO `tb_discuss` VALUES (106, 23, 'gaoge', '学到了，感谢！', '2022-08-31 16:24:18');
 INSERT INTO `tb_discuss` VALUES (107, 23, 'gaoge', '长知识了', '2022-08-31 16:26:02');
 INSERT INTO `tb_discuss` VALUES (108, 22, 'wyn3', '太简单', '2022-09-06 16:19:37');
-
+*/
 -- ----------------------------
 -- Table structure for tb_expert
 -- ----------------------------
+# =============================================================================================================================================================================================================================================================================================
+/*
 DROP TABLE IF EXISTS `tb_expert`;
 CREATE TABLE `tb_expert`  (
   `user_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -143,14 +154,16 @@ CREATE TABLE `tb_expert`  (
   `belong` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`user_name`) USING BTREE
 ) ENGINE = INNODB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Records of tb_expert
 -- ----------------------------
+/*
 INSERT INTO `tb_expert` VALUES ('gaoge', '高歌', '15649599256', '生物学', '高级职称', '山东省农科院');
 INSERT INTO `tb_expert` VALUES ('wyn', '王玉娜', '17892322499', '生物化学', '高级工程师', '青岛生物研究所');
 INSERT INTO `tb_expert` VALUES ('wyn2', '王艳安', '13192924932', '生物化学', '高级工程师', '青岛生物研究所');
 INSERT INTO `tb_expert` VALUES ('zhangxu', '张旭', '18224995956', '生物学', '中级职称', '山东省农科院');
+*/
 
 -- ----------------------------
 -- Table structure for tb_finance
@@ -223,6 +236,8 @@ INSERT INTO `tb_financing_intention` VALUES (6, 'wyn3', '王亚楠', '威海市'
 -- ----------------------------
 -- Table structure for tb_knowledge
 -- ----------------------------
+# =============================================================================================================================================================================================================================================================================================
+/*
 DROP TABLE IF EXISTS `tb_knowledge`;
 CREATE TABLE `tb_knowledge`  (
   `knowledge_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -234,10 +249,11 @@ CREATE TABLE `tb_knowledge`  (
   `update_time` DATETIME(0) NOT NULL,
   PRIMARY KEY (`knowledge_id`) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Records of tb_knowledge
 -- ----------------------------
+/*
 INSERT INTO `tb_knowledge` VALUES (22, '水稻种植全过程', '水稻种植第一步：晒种\n水稻种植第二步：选种\n水稻种植第三步：整秧版\n水稻种植第四步：播种\n水稻种植第五步：插秧\n水稻种植第六步：缓苗\n水稻种植第七步：田间管理（关键）', '2cc2479866734c8980d88c86db7dbdc7.webp', 'gaoge', '16:33:59', '2021-08-27 16:33:59');
 INSERT INTO `tb_knowledge` VALUES (23, '玉米种植过程详解 ', '玉米一直都被誉为长寿食品，含有丰富的蛋白质、脂肪、维生素、微量元素、纤维素等，具有开发高营养、高生物学功能食品的巨大潜力。但由于其遗传性较为复杂，变异种类丰富，在常规的育种过程中存在着周期过长、变异系数过大、影响子代生长发育的缺点，而现代生物育种技术不但克服了上述缺点和不足，同时也提高了育种速度和质量。玉米出苗后，要及时检查出苗情况，发现缺苗断垄要及时补种、补栽。3叶期前缺苗，用饱满种子浸种催芽后浇水补种。3叶期后缺苗用带土移栽法补苗(播种时可在行间播预备苗)，另外，缺苗处也可在附近留双株补救。', 'cb0d06358f8c40628b6dca273f881875.jpeg', 'gaoge', '09:31:37', '2021-08-30 09:31:37');
 INSERT INTO `tb_knowledge` VALUES (24, '大豆种植', '大豆可分为黄豆、青豆和黑豆。可大家都认为大豆只是黄豆。富含蛋白质,大豆磷脂由大豆提取出来的精华,大豆中提取的纯磷脂精华物质,对人体健康有着极大的帮助，并无副作用。对于黄大豆，它需要较长的生产时间，也非常得能耐寒冷，北方地区的气候条件适合种植;然而青豆的生长时间较短，适宜把', '12be19984e374bcfbf06561571365d07.jpg', 'gaoge', '09:37:43', '2021-08-30 09:37:43');
@@ -248,6 +264,7 @@ INSERT INTO `tb_knowledge` VALUES (28, '西瓜种植', '西瓜露地早春栽培
 INSERT INTO `tb_knowledge` VALUES (29, '生姜的一生｜现代农业种植和收获生姜', '两千多年来生姜一直活跃在餐桌上。一般做酱菜和小吃用嫩姜，做调料和药用以老姜为佳。传说，神农氏四处尝百草。有一次，误食毒蘑菇，吃了一株长着尖细叶子的青草，神农氏一阵腹泻，感觉死而复生。神农氏姓姜，他将这株救命的植物，叫做生姜。', '4265868e71a44832a3e39a4547dc307c.jpg', 'zhangxukun', '09:55:54', '2021-08-30 09:55:54');
 INSERT INTO `tb_knowledge` VALUES (30, '人工种植蘑菇', '黄伞伞，白杆杆，吃完一起开厂厂！一天卖2吨蘑菇的奥地利现代种植工厂赚钱全过程', '1aff704b6fa94e91b58bdda36f9db166.jpg', 'zhangxukun', '10:00:02', '2021-08-30 10:00:02');
 INSERT INTO `tb_knowledge` VALUES (33, '草莓', '草莓', '5fe8fbf29a24484dab19ff992aa97c23.mp4', 'gaoge', '16:21:54', '2022-09-07 16:21:54');
+*/
 
 -- ----------------------------
 -- Table structure for tb_order
@@ -371,6 +388,8 @@ INSERT INTO `tb_purchase_detail` VALUES (126, 122, 80, 324.00, 324.00, 1);
 -- ----------------------------
 -- Table structure for tb_question
 -- ----------------------------
+# =============================================================================================================================================================================================================================================================================================
+/*
 DROP TABLE IF EXISTS `tb_question`;
 CREATE TABLE `tb_question`  (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
@@ -382,18 +401,20 @@ CREATE TABLE `tb_question`  (
   `question` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '问题',
   `answer` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '回答',
   `status` INT(11) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  CONSTRAINT `fk_question_expert` FOREIGN KEY (`expert_name`) REFERENCES `tb_expert` (`user_name`)
 ) ENGINE = INNODB AUTO_INCREMENT = 112 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Records of tb_question
 -- ----------------------------
+/*
 INSERT INTO `tb_question` VALUES (101, 'zhangxu', 'wyn3', '13792499999', '玉米', '玉米苗灌溉', '专家您好，我想请问玉米苗新技术灌溉，对玉米苗有没有影响', '', 0);
 INSERT INTO `tb_question` VALUES (103, 'zhangxu', 'wyn3', '13792499999', '新疆哈密瓜', '新疆哈密瓜甜度控制', '新疆哈密瓜甜度是否跟日晒有关', '哈密瓜性喜充足的阳光和较大的昼夜温差,白天可以充分发挥光合作用,而夜晚的呼吸消耗较小,有利于养分沉淀', 0);
 INSERT INTO `tb_question` VALUES (108, 'gaoge', 'lzh', '15621367568', '苹果树', '苹果果树种植方法', '苹果果树种植多久浇一次水比较好呀', NULL, 0);
 INSERT INTO `tb_question` VALUES (110, 'gaoge', 'wyn3', '13596488256', '这是测试提问', '这是测试提问', '这是测试提问', NULL, 0);
 INSERT INTO `tb_question` VALUES (111, 'gaoge', 'wyn3', '13792499275', '草莓', '北方草莓种植品种', '北方草莓种植品种有哪些', '红颜，甜宝', 1);
-
+*/
 -- ----------------------------
 -- Table structure for tb_reserve
 -- ----------------------------

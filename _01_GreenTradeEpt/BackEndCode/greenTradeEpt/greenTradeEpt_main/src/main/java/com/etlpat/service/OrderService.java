@@ -16,5 +16,7 @@ public interface OrderService extends IService<Order> {
 
     PageBean<Order> getPageOrdersByKeyword(Integer pageNum, Integer pageSize, String keyword);
 
+    PageBean<Order> getPageOrdersByKeywordAndType(Integer pageNum, Integer pageSize, String keyword, String type);
+
     List<String> getAllContent();
 }

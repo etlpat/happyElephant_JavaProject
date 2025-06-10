@@ -8,6 +8,7 @@ import com.etlpat.pojo.Order;
 import com.etlpat.pojo.PageBean;
 import com.etlpat.service.OrderService;
 import com.etlpat.mapper.OrderMapper;
+import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,19 +55,34 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
     // 根据关键词分页查询（关键词在标题/内容/作者名中）
     @Override
     public PageBean<Order> getPageOrdersByKeyword(Integer pageNum, Integer pageSize, String keyword) {
-        // 若无关键词，查询全部
-        if (keyword == null || keyword.equals("")) {
-            return getAllPageOrders(pageNum, pageSize);
-        }
-
+        // 若keyword不为null或""，进行模糊查询
         LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<Order>()
-                .like(Order::getTitle, keyword)
-                .or().like(Order::getContent, keyword)
-                .or().like(Order::getOwnName, keyword);
+                .like(!StringUtils.isNullOrEmpty(keyword), Order::getTitle, keyword)
+                .or().like(!StringUtils.isNullOrEmpty(keyword), Order::getContent, keyword)
+                .or().like(!StringUtils.isNullOrEmpty(keyword), Order::getOwnName, keyword);
         return getPageOrdersByWrapper(pageNum, pageSize, wrapper);
     }
 
 
+    // 根据关键词和类型分页查询
+    @Override
+    public PageBean<Order> getPageOrdersByKeywordAndType(Integer pageNum, Integer pageSize, String keyword, String type) {
+        LambdaQueryWrapper<Order> wrapper = new LambdaQueryWrapper<Order>()
+                .eq(Order::getType, type);
+
+        // 只有 keyword 非空时，才添加 AND 和模糊查询
+        if (!StringUtils.isNullOrEmpty(keyword)) {
+            wrapper.and(qw -> qw
+                    .like(Order::getTitle, keyword)
+                    .or().like(Order::getContent, keyword)
+                    .or().like(Order::getOwnName, keyword)
+            );
+        }
+        return getPageOrdersByWrapper(pageNum, pageSize, wrapper);
+    }
+
+
+    // 获取全部评论
     @Override
     public List<String> getAllContent() {
         return orderMapper.selectContent();

@@ -10,6 +10,15 @@ export async function getPage(pageNum, pageSize, keyword) {
   ).data;
 }
 
+// 根据关键词和类型，获取分页数据
+export async function getPageByType(pageNum, pageSize, keyword, type) {
+  return (
+    await newAxios.get("/order/getPageByType/" + pageNum, {
+      params: { pageSize, keyword, type }, // 请求参数
+    })
+  ).data;
+}
+
 // 获取全部评论
 export async function getContent() {
   return (await newAxios.get("/order/getContent")).data;

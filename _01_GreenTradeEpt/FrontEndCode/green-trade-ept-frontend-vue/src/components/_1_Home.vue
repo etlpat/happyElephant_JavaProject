@@ -38,6 +38,12 @@
                     v-if="pageList.length === 0">
                 </el-alert>
             </div>
+            <!-- 页码框 -->
+            <div class="block">
+                <el-pagination layout="prev, pager, next" :page-count="totalPages" :current-page="pageNum"
+                    @current-change="handleCurrentChange">
+                </el-pagination>
+            </div>
         </div>
         <div class="right">
             <div>
@@ -55,8 +61,7 @@
 </template>
 
 <script>
-import { getPage } from "../apis/OrderService.js";
-import { getContent } from "../apis/OrderService.js";
+import { getPage, getContent } from "../apis/OrderService.js";
 export default {
     data() {
         return {
@@ -70,7 +75,10 @@ export default {
     },
     methods: {
         // 根据关键字分页查询
-        async searchPage() {
+        async searchPage(isHandleCurrentChange) {
+            if (isHandleCurrentChange != true) {// 若参数不为true，表示并非页数变化
+                this.pageNum = 1;// 则置当前页数为1
+            }
             const result = await getPage(this.pageNum, this.pageSize, this.keyword);
             this.pageBean = result.data;
             this.pageList = result.data.items;
@@ -82,8 +90,13 @@ export default {
                 name: "goodInfo",// 使用name切换页面，目标页面才能接收params参数！
                 params: { good: JSON.stringify(good) } // 将对象转为字符串
             });
-        }
+        },
 
+        // 当页数改变
+        handleCurrentChange(val) {// val为当前页
+            this.pageNum = val;
+            this.searchPage(true);// 仅当页数改变，传入参数true
+        }
     },
     async mounted() {
         // 初始进行无条件搜索
@@ -93,6 +106,14 @@ export default {
         this.pageList = result.data.items;
         // 获取全部评论
         this.contents = (await getContent()).data;
+    },
+    computed: {
+        // 计算属性，用于获取总页数
+        totalPages() {
+            if (!this.pageBean || !this.pageBean.total || !this.pageSize) return 0;
+            // 总页数 = (总项数 / 每页项数) 向上取整
+            return Math.ceil(Number(this.pageBean.total) / Number(this.pageSize));
+        }
     }
 }
 </script>
@@ -188,6 +209,10 @@ export default {
         .alertInfo {
             // margin-top: 20px;
             margin-left: 5%;
+        }
+
+        .block {
+            margin-top: 10px;
         }
 
     }
