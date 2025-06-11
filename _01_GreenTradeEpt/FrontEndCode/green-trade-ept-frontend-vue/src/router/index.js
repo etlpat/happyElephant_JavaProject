@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
 // import HomeView from "../views/HomeView.vue";
 // import { component } from "vue/types/umd";
 
@@ -67,9 +68,28 @@ const routes = [
         component: () => import("../views/_5.1_MoreExpert.vue"),
       },
       {
+        path: "askAQuestion",
+        name: "askAQuestion",
+        component: () => import("../views/_5.2_AskAQuestion.vue"),
+      },
+      {
+        path: "reserve",
+        name: "reserve",
+        component: () => import("../views/_5.3_Reserve.vue"),
+      },
+      {
         path: "shoppingCart",
         name: "shoppingCart",
         component: () => import("../views/_6_ShoppingCartView.vue"),
+        // 路由守卫
+        beforeEnter: (to, from, next) => {
+          // 判断用户是否登录，若登录才能打开购物车模块
+          if (!store.state.authorization) {
+            alert("只有登录用户才能查看购物车，请先登录！");
+          } else {
+            next(); // 放行
+          }
+        },
       },
       {
         path: "financingApplication",

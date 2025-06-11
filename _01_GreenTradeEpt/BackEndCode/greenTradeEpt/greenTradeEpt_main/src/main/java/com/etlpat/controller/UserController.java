@@ -3,7 +3,6 @@ package com.etlpat.controller;
 import com.etlpat.pojo.Result;
 import com.etlpat.pojo.User;
 import com.etlpat.service.UserService;
-import com.etlpat.service.impl.UserServiceImpl;
 import com.etlpat.utils.JWTUtil;
 import com.etlpat.utils.MD5Util;
 import com.etlpat.utils.ThreadLocalUtil;
@@ -81,23 +80,6 @@ public class UserController {
     }
 
 
-    // 获取当前登录用户的全部信息（通过令牌获取当前正在登录的用户）
-    @GetMapping("/userInfo")
-    public Result userInfo() {
-        Map<String, Object> userMap = ThreadLocalUtil.get();// 从ThreadLocal中获取本次登录的用户的map
-        User user = userService.getUserByUsername(userMap.get("username").toString());
-        return Result.success(user);
-    }
-
-
-//    // 更新用户信息
-//    @PutMapping("/update")
-//    public Result update(@RequestBody User user) {// @RequestBody注解用于接收json数据，并将其转换为实体类
-//        userService.update(user);
-//        return Result.success();
-//    }
-
-
     // 更新用户密码
     // 注意：使用map集合接收密码，其中(原密码：old_pwd，新密码：new_pwd，确认新密码：re_pwd)
     @PatchMapping("/updatePassword")
@@ -128,5 +110,13 @@ public class UserController {
         userService.updatePasswordByUserName(username, newPwd);
         stringRedisTemplate.delete("etlpat:greenTradeEpt:token:" + username);// 删除Redis中的令牌
         return Result.success();
+    }
+
+
+    // 获取用户的全部信息
+    @GetMapping("/userInfo")
+    public Result userInfo(String username) {
+        User user = userService.getUserByUsername(username);
+        return Result.success(user);
     }
 }

@@ -3,6 +3,7 @@ DESC tb_user;
 DELETE FROM `tb_user`;
 SELECT * FROM tb_user;
 DELETE FROM tb_user WHERE user_name = '555';
+UPDATE tb_user SET nick_name='张三丰',phone='2333333',address='张山峰'  WHERE user_name = '张三';
 
 
 # 2.订单表
@@ -29,3 +30,12 @@ SELECT * FROM tb_expert;
 # 6.问题表
 DESC tb_question;
 SELECT * FROM tb_question;
+
+# 7.预约表
+DESC tb_reserve;
+SELECT * FROM tb_reserve;
+
+# 8.购物车表
+DESC tb_shoppingcart;
+SELECT * FROM tb_shoppingcart;
+DELETE FROM `tb_shoppingcart`;

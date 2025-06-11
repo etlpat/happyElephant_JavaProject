@@ -31,8 +31,10 @@
                                 </div>
                             </div>
                             <div class="expert-actions">
-                                <el-button type="success" size="small" plain class="action-button">提问</el-button>
-                                <el-button type="success" size="small" plain class="action-button">预约</el-button>
+                                <el-button type="success" size="small" plain class="action-button"
+                                    @click="askAQuestion(item)">提问</el-button>
+                                <el-button type="success" size="small" plain class="action-button"
+                                    @click="reserve(item)">预约</el-button>
                             </div>
                         </div>
                     </div>
@@ -77,6 +79,22 @@ export default {
         handleCurrentChange(val) {// val为当前页
             this.pageNum = val;
             this.search(true);// 仅当页数改变，传入参数true
+        },
+
+        // 提问
+        async askAQuestion(expert) {
+            this.$router.push({
+                name: "askAQuestion",// 使用name切换页面，目标页面才能接收params参数！
+                params: { expert: JSON.stringify(expert) } // 将对象转为字符串
+            });
+        },
+
+        // 预约
+        async reserve(expert) {
+            this.$router.push({
+                name: "reserve",// 使用name切换页面，目标页面才能接收params参数！
+                params: { expert: JSON.stringify(expert) } // 将对象转为字符串
+            });
         },
     },
 

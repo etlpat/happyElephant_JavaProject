@@ -3,7 +3,6 @@ package com.etlpat.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.etlpat.pojo.Knowledge;
 import com.etlpat.pojo.PageBean;
 import com.etlpat.pojo.Question;
 import com.etlpat.service.QuestionService;

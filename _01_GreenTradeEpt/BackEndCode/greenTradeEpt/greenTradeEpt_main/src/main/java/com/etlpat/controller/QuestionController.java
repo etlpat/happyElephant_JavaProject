@@ -5,10 +5,7 @@ import com.etlpat.pojo.Question;
 import com.etlpat.pojo.Result;
 import com.etlpat.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 // 问题表
@@ -28,5 +25,13 @@ public class QuestionController {
         }
         PageBean<Question> pageBean = questionService.getPageByKeyword(pageNum, pageSize, keyword);
         return Result.success(pageBean);
+    }
+
+
+    //添加数据
+    @PostMapping("/save")
+    public Result save(Question question) {
+        questionService.save(question);
+        return Result.success();
     }
 }

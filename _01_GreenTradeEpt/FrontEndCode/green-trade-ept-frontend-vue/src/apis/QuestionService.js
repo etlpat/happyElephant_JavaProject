@@ -9,3 +9,8 @@ export async function getPage(pageNum, pageSize, keyword) {
     })
   ).data;
 }
+
+// 插入对象
+export async function save(question) {
+  return (await newAxios.post("/question/save", question)).data;
+}

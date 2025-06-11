@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etlpat.mapper.ShoppingcartMapper">
+
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.Shoppingcart">
+        <!-- 购物车字段 -->
+        <id property="shoppingId" column="shopping_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="count" column="count"/>
+        <result property="ownName" column="own_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+
+        <!-- 关联订单对象 -->
+        <association property="order" javaType="com.etlpat.pojo.Order">
+            <id property="orderId" column="o_order_id"/>
+            <result property="title" column="o_title"/>
+            <result property="price" column="o_price"/>
+            <result property="content" column="o_content"/>
+            <result property="orderStatus" column="o_order_status"/>
+            <result property="type" column="o_type"/>
+            <result property="picture" column="o_picture"/>
+            <result property="ownName" column="o_own_name"/>
+            <result property="cooperationName" column="o_cooperation_name"/>
+            <result property="createTime" column="o_create_time"/>
+            <result property="updateTime" column="o_update_time"/>
+            <result property="address" column="o_address"/>
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        shopping_id
+        ,order_id,count,own_name,create_time,update_time
+    </sql>
+
+
+    <select id="selectPageWithOrder" resultMap="BaseResultMap">
+        SELECT sc.shopping_id,
+               sc.order_id,
+               sc.count,
+               sc.own_name,
+               sc.create_time,
+               sc.update_time,
+               o.order_id         AS o_order_id,
+               o.title            AS o_title,
+               o.price            AS o_price,
+               o.content          AS o_content,
+               o.order_status     AS o_order_status,
+               o.type             AS o_type,
+               o.picture          AS o_picture,
+               o.own_name         AS o_own_name,
+               o.cooperation_name AS o_cooperation_name,
+               o.create_time      AS o_create_time,
+               o.update_time      AS o_update_time,
+               o.address          AS o_address
+        FROM tb_shoppingcart sc
+                 LEFT JOIN tb_order o ON sc.order_id = o.order_id
+        WHERE sc.own_name = #{ownName}
+        ORDER BY sc.create_time DESC
+    </select>
+
+</mapper>

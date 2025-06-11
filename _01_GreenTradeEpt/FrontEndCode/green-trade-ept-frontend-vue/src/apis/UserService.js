@@ -15,3 +15,12 @@ export async function register(username, password1, password2) {
     await newAxios.post("/user/register", { username, password1, password2 })
   ).data;
 }
+
+// 获取用户信息
+export async function userInfo(username) {
+  return (
+    await newAxios.get("/user/userInfo", {
+      params: { username }, // 请求参数
+    })
+  ).data;
+}

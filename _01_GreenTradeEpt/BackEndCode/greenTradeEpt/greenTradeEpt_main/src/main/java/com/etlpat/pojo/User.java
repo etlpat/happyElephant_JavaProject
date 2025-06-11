@@ -1,15 +1,19 @@
 package com.etlpat.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * @TableName tb_user
  */
-@TableName(value ="tb_user")
+@TableName(value = "tb_user")
 @Data
 public class User {
+    @TableId
     private String userName;
 
     private String password;

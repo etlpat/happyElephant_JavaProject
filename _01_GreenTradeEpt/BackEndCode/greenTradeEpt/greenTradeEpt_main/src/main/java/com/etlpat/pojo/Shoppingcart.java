@@ -5,39 +5,30 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import lombok.Data;
 
 /**
- * @TableName tb_order
+ * @TableName tb_shoppingcart
  */
-@TableName(value = "tb_order")
+@TableName(value = "tb_shoppingcart")
 @Data
-public class Order {
+public class Shoppingcart {
     @TableId
+    private Integer shoppingId;
+
     private Integer orderId;
 
-    private String title;
-
-    private BigDecimal price;
-
-    private String content;
-
-    private Integer orderStatus;
-
-    private String type;
-
-    private String picture;
+    private Integer count;
 
     private String ownName;
-
-    private String cooperationName;
 
     private Date createTime;
 
     private Date updateTime;
 
-    private String address;
+    // 关联的订单对象（非数据库字段）
+    @TableField(exist = false)
+    private Order order;
 }

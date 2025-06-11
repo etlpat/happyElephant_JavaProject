@@ -419,6 +419,7 @@ INSERT INTO `tb_question` VALUES (111, 'gaoge', 'wyn3', '13792499275', '草莓',
 -- Table structure for tb_reserve
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_reserve`;
+/*
 CREATE TABLE `tb_reserve`  (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `expert_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '专家',
@@ -433,14 +434,20 @@ CREATE TABLE `tb_reserve`  (
   `message` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '留言',
   `answer` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '回答',
   `status` INT(11) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_expert_name` (`expert_name`) USING BTREE,
+  CONSTRAINT `fk_reserve_expert` FOREIGN KEY (`expert_name`) 
+    REFERENCES `tb_expert` (`user_name`) 
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE
 ) ENGINE = INNODB AUTO_INCREMENT = 211 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Records of tb_reserve
 -- ----------------------------
+/*
 INSERT INTO `tb_reserve` VALUES (210, 'gaoge', 'wyn3', '2', '青岛崂山区北宅', '草莓', '沙地', '越冬植物', '红颜草莓', '13785964152', NULL, '已处理', 1);
-
+*/
 -- ----------------------------
 -- Table structure for tb_sell_purchase
 -- ----------------------------
@@ -472,6 +479,7 @@ INSERT INTO `tb_sell_purchase` VALUES (18, 122, 'wyn3', 2, 324.00, 324.00, '147'
 -- ----------------------------
 -- Table structure for tb_shoppingcart
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `tb_shoppingcart`;
 CREATE TABLE `tb_shoppingcart`  (
   `shopping_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -480,9 +488,17 @@ CREATE TABLE `tb_shoppingcart`  (
   `own_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_time` DATETIME(0) NOT NULL,
   `update_time` DATETIME(0) NOT NULL,
-  PRIMARY KEY (`shopping_id`) USING BTREE
+  PRIMARY KEY (`shopping_id`) USING BTREE,
+  CONSTRAINT `fk_shoppingcart_user` FOREIGN KEY (`own_name`) 
+    REFERENCES `tb_user` (`user_name`) 
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_shoppingcart_order` FOREIGN KEY (`order_id`) 
+    REFERENCES `tb_order` (`order_id`) 
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE
 ) ENGINE = INNODB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Table structure for tb_user
 -- ----------------------------
@@ -529,7 +545,7 @@ INSERT INTO `tb_user` VALUES ('zwr', '$2a$10$AC1gCsk1V5Ov7n.zvkxxvuMM4f3BnWmJqr4
 -- Function structure for sfn_GetSimilar_Rate
 -- ----------------------------
 DROP FUNCTION IF EXISTS `sfn_GetSimilar_Rate`;
-delimiter ;;
+DELIMITER ;;
 CREATE DEFINER=`root`@`%` FUNCTION `sfn_GetSimilar_Rate`(s1 VARCHAR(64),s2 VARCHAR(64)) RETURNS FLOAT
 BEGIN
 DECLARE l1 INT DEFAULT 0;

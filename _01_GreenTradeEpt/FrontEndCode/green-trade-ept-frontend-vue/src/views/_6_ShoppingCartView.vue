@@ -1,13 +1,14 @@
 <!-- 6.购物车模块 -->
 <template>
-    <div>
-        <h1>购物车</h1>
-    </div>
+    <shopping-cart></shopping-cart>
 </template>
 
 <script>
+import ShoppingCart from "../components/_6_ShoppingCart.vue"
 export default {
-
+    components: {// 注册组件
+        ShoppingCart,
+    }
 }
 </script>
 

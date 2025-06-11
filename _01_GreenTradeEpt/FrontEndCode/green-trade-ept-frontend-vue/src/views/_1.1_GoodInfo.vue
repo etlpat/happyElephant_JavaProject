@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="btn">
-                        <el-button type="primary">加入购物车</el-button>
+                        <el-button type="primary" @click="saveGood">加入购物车</el-button>
                         <el-button type="primary" @click="exit">返回上一页</el-button>
                     </div>
                 </div>
@@ -56,6 +56,8 @@
 </template>
 
 <script>
+import { save } from "../apis/ShoppingcartService.js";
+
 export default {
     data() {
         return {
@@ -65,6 +67,24 @@ export default {
     methods: {
         exit() {
             this.$router.back();// 返回上一页
+        },
+
+        // 将商品对象保存到购物车
+        async saveGood() {
+            let username = this.$store.state.loginUsername;
+            if (!username) {
+                alert("请先登录！");
+                return;
+            }
+            // 创建shoppingcart对象
+            const shoppingcart = {
+                orderId: this.good.orderId,
+                count: 1,
+                ownName: username,
+            };
+            await save(shoppingcart);// 将信息交给数据库
+            this.$message.success('商品成功放入购物车！');
+            this.exit();
         }
     },
     mounted() {
