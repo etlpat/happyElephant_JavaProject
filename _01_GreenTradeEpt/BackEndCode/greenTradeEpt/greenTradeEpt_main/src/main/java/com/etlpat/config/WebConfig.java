@@ -37,6 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
                         , "/knowledge/getPage/{pageNum}"
                         , "/question/getPage/{pageNum}"
                         , "/expert/getPageAll/{pageNum}"
+                        , "/bank/getBankList", "/bank/getBank"
                 );
     }
 }

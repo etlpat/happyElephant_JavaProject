@@ -119,4 +119,12 @@ public class UserController {
         User user = userService.getUserByUsername(username);
         return Result.success(user);
     }
+
+
+    // 更新细节信息
+    @PostMapping("/updateDetail")
+    public Result updateDetail(User user) {
+        userService.updateDetail(user);
+        return Result.success();
+    }
 }

@@ -21,5 +21,6 @@
         from tb_discuss
         where
         knowledge_id = #{knowledgeId,jdbcType=NUMERIC}
+        ORDER BY create_time DESC
     </select>
 </mapper>

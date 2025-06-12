@@ -1,13 +1,14 @@
-<!-- 8.设置模块 -->
+<!-- 8-1.设置模块 -->
 <template>
-    <div>
-        <h1>设置</h1>
-    </div>
+    <settings></settings>
 </template>
 
 <script>
+import Settings from "../components/_8_Settings.vue"
 export default {
-
+    components: {// 注册组件
+        Settings,
+    }
 }
 </script>
 

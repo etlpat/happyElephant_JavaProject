@@ -3,6 +3,7 @@ package com.etlpat.service;
 import com.etlpat.pojo.PageBean;
 import com.etlpat.pojo.Shoppingcart;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author lenovo
@@ -22,4 +23,6 @@ public interface ShoppingcartService extends IService<Shoppingcart> {
 
 
     public void updateCount(Integer count, Integer id);
+
+    Shoppingcart selectOneByOrderIdAndOwnName(@Param("orderId") Integer orderId, @Param("ownName") String ownName);
 }

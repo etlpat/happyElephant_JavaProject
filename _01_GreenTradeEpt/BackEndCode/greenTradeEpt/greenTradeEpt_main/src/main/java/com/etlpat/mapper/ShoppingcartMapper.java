@@ -20,4 +20,6 @@ public interface ShoppingcartMapper extends BaseMapper<Shoppingcart> {
      * @return 分页结果
      */
     Page<Shoppingcart> selectPageWithOrder(Page<Shoppingcart> page, @Param("ownName") String ownName);
+
+    Shoppingcart selectOneByOrderIdAndOwnName(@Param("orderId") Integer orderId, @Param("ownName") String ownName);
 }

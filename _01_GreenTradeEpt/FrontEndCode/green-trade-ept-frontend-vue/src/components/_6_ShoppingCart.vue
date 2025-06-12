@@ -87,8 +87,9 @@
                 <div class="footer-right">
                     <span class="total-text">已选择 {{ selectedCount }} 件商品</span>
                     <span class="total-price">总计: ¥{{ totalPrice.toFixed(2) }}</span>
-                    <el-button type="primary" :disabled="!multipleSelection || multipleSelection.length === 0">
-                        提交订单
+                    <el-button type="primary" :disabled="!multipleSelection || multipleSelection.length === 0"
+                        @click="submitPurchase">
+                        提交购物清单
                     </el-button>
                 </div>
             </div>
@@ -109,6 +110,7 @@
 <script>
 import { userInfo } from "../apis/UserService.js";
 import { getPage, remove, updateCount } from "../apis/ShoppingcartService.js";
+import { savePurchase } from "../apis/PurchaseService.js";
 
 export default {
     data() {
@@ -195,6 +197,34 @@ export default {
             } catch (error) {
                 if (error !== 'cancel') {
                     this.$message.error('删除失败: ' + error.message);
+                }
+            }
+        },
+
+        // 提交购物清单
+        async submitPurchase() {
+            try {
+                // 确认是否提交
+                await this.$confirm('确认提交订单吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                });
+                // 创建purchase对象
+                const purchase = {
+                    ownName: this.username,
+                    totalPrice: this.totalPrice,
+                    address: this.user.address || '暂无地址信息',
+                    purchaseType: 1,
+                    purchaseStatus: 1,
+                };
+                await savePurchase(purchase);// 提交数据到数据库
+                this.$message.success('购物清单提交成功');
+                this.toggleSelection(); // 清空选择
+                // await this.search(); // 刷新购物车
+            } catch (error) {
+                if (error !== 'cancel') {
+                    this.$message.error('订单提交失败: ' + (error.message));
                 }
             }
         },

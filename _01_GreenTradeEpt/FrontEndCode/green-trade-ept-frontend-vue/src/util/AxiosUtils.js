@@ -41,6 +41,16 @@ newAxios.interceptors.response.use(
     return response;
   },
   function (error) {
+    // 拦截401异常状态
+    if (error.response.status === 401) {
+      // 清除本地存储的 token 和用户信息
+      localStorage.removeItem("authorization");
+      localStorage.removeItem("thisUser");
+
+      // 提示并跳转到登录页
+      alert("登录已过期，请重新登录");
+      window.location.href = "/"; // 或使用 Vue Router 跳转
+    }
     return Promise.reject(error);
   }
 );

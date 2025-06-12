@@ -14,4 +14,6 @@ public interface UserService extends IService<User> {
     void register(String username, String password);
 
     void updatePasswordByUserName(String username, String password);
+
+    void updateDetail(User user);
 }

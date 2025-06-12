@@ -101,6 +101,11 @@ const routes = [
         name: "settings",
         component: () => import("../views/_8_SettingsView.vue"),
       },
+      {
+        path: "aboutUs",
+        name: "aboutUs",
+        component: () => import("../views/_8.1_AboutUsView.vue"),
+      },
     ],
   },
   {

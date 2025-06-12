@@ -55,6 +55,7 @@ INSERT INTO `tb_address` VALUES (189, 'wangya', '王娅', '13792449255', '青岛
 -- ----------------------------
 -- Table structure for tb_bank
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `tb_bank`;
 CREATE TABLE `tb_bank`  (
   `bank_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -66,10 +67,11 @@ CREATE TABLE `tb_bank`  (
   `repayment` INT(11) NOT NULL,
   PRIMARY KEY (`bank_id`) USING BTREE
 ) ENGINE = INNODB AUTO_INCREMENT = 1011 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Records of tb_bank
 -- ----------------------------
+/*
 INSERT INTO `tb_bank` VALUES (1001, '青岛银行', '“青易贷”，是青岛银行小微企业融资产品服务品牌。为助力小微企业成长发展，青岛银行为广大小微企业打造全面金融服务品牌体系——“青易贷”，紧贴小微企业融资需求特点，紧跟市场经济发展变化，不断创新完善融资产品，形成特色产品体系，力争全方位地满足不同行业、不同成长阶段的小微企业各类融资需求。', '96588', 100000.00, 1.10, 24);
 INSERT INTO `tb_bank` VALUES (1002, '中国银行', '中国银行金融市场业务，包括国内、国际本外币金融市场相关交易、投资、理财、托管等业务，为公司、个人以及金融同业提供全面、完善、专业的各项金融市场服务。', '95566', 100000.00, 1.20, 36);
 INSERT INTO `tb_bank` VALUES (1004, '中国工商银行', '工商银行向小微企业主发放的，用于满足其生产经营资金需求或置换生产经营过程中产生的负债性资金的人民币贷款。', '95588', 150000.00, 1.10, 30);
@@ -79,7 +81,7 @@ INSERT INTO `tb_bank` VALUES (1007, '中国建设银行', '“诚贷通”小额
 INSERT INTO `tb_bank` VALUES (1008, '浦发银行', '点贷是我行面向符合条件的客户通过互联网在线受理、在线签约，并即时发放贷款的业务模式。', '95528', 150000.00, 1.10, 24);
 INSERT INTO `tb_bank` VALUES (1009, '中国平安银行', '“数保贷”平安银行与担保公司、担保基金、保险公司等联合开发的面向诚信纳税的中小企业法人或企业主的互联网信用贷款', '95511', 160000.00, 1.20, 36);
 INSERT INTO `tb_bank` VALUES (1010, '中国民生银行', '为进一步丰富金融服务乡村振兴的内涵，民生银行在持续迭代“农贷通”产品的基础上，通过与中国银联强强联合，将借记卡产品与贷款产品相融合，以科技赋能，将现代金融服务延伸到广大农村区域。“农贷通”卡满载10项特色涉农权益，为农户提供多样化增值服务。', '95568', 200000.00, 1.60, 24);
-
+*/
 -- ----------------------------
 -- Table structure for tb_bank_user
 -- ----------------------------
@@ -269,9 +271,9 @@ INSERT INTO `tb_knowledge` VALUES (33, '草莓', '草莓', '5fe8fbf29a24484dab19
 -- ----------------------------
 -- Table structure for tb_order
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_order`;
 # =============================================================================================================================================================================================================================================================================================
 /*
+DROP TABLE IF EXISTS `tb_order`;
 CREATE TABLE `tb_order`  (
   `order_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '需求标题',
@@ -342,6 +344,7 @@ INSERT INTO `tb_order` VALUES (143, '小麦', 2.00, '出售小麦，质量好，
 -- ----------------------------
 -- Table structure for tb_purchase
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `tb_purchase`;
 CREATE TABLE `tb_purchase`  (
   `purchase_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -352,16 +355,21 @@ CREATE TABLE `tb_purchase`  (
   `purchase_status` INT(11) NOT NULL,
   `create_time` DATETIME(0) NOT NULL,
   `update_time` DATETIME(0) NOT NULL,
-  PRIMARY KEY (`purchase_id`) USING BTREE
+  PRIMARY KEY (`purchase_id`) USING BTREE,
+  CONSTRAINT `fk_purchase_user` FOREIGN KEY (`own_name`) 
+    REFERENCES `tb_user` (`user_name`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
 ) ENGINE = INNODB AUTO_INCREMENT = 123 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = COMPACT;
-
+*/
 -- ----------------------------
 -- Records of tb_purchase
 -- ----------------------------
+/*
 INSERT INTO `tb_purchase` VALUES (120, 'wyn3', 1, 15.80, '184', 1, '2022-09-07 16:09:34', '2022-09-07 16:09:34');
 INSERT INTO `tb_purchase` VALUES (121, 'wyn3', 1, 265.00, '184', 1, '2022-09-07 16:09:55', '2022-09-07 16:09:55');
 INSERT INTO `tb_purchase` VALUES (122, 'zhangxukun', 1, 324.00, '147', 1, '2022-09-08 10:13:44', '2022-09-08 10:13:44');
-
+*/
 -- ----------------------------
 -- Table structure for tb_purchase_detail
 -- ----------------------------
@@ -418,8 +426,8 @@ INSERT INTO `tb_question` VALUES (111, 'gaoge', 'wyn3', '13792499275', '草莓',
 -- ----------------------------
 -- Table structure for tb_reserve
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_reserve`;
 /*
+DROP TABLE IF EXISTS `tb_reserve`;
 CREATE TABLE `tb_reserve`  (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `expert_name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '专家',

@@ -1,10 +1,10 @@
 # 1.用户表
 DESC tb_user;
-DELETE FROM `tb_user`;
+# DELETE FROM `tb_user`;
 SELECT * FROM tb_user;
-DELETE FROM tb_user WHERE user_name = '555';
-UPDATE tb_user SET nick_name='张三丰',phone='2333333',address='张山峰'  WHERE user_name = '张三';
-
+# DELETE FROM tb_user WHERE user_name = '555';
+# UPDATE tb_user SET nick_name='张三丰',phone='2333333',address='张山峰'  WHERE user_name = '张三';
+# UPDATE tb_user SET avatar = CONCAT(user_name, '.png');
 
 # 2.订单表
 DESC tb_order;
@@ -38,4 +38,12 @@ SELECT * FROM tb_reserve;
 # 8.购物车表
 DESC tb_shoppingcart;
 SELECT * FROM tb_shoppingcart;
-DELETE FROM `tb_shoppingcart`;
+# DELETE FROM `tb_shoppingcart`;
+
+# 9.购物清单表
+DESC tb_purchase;
+SELECT * FROM tb_purchase;
+
+# 10.银行表
+DESC tb_bank;
+SELECT * FROM tb_bank;

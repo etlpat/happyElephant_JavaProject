@@ -60,6 +60,12 @@ public class ShoppingcartServiceImpl extends ServiceImpl<ShoppingcartMapper, Sho
                 .eq(Shoppingcart::getShoppingId, id);
         shoppingcartMapper.update(null, wrapper);
     }
+
+    // 根据用户id和订单id获取数据
+    @Override
+    public Shoppingcart selectOneByOrderIdAndOwnName(Integer orderId, String ownName) {
+        return shoppingcartMapper.selectOneByOrderIdAndOwnName(orderId, ownName);
+    }
 }
 
 

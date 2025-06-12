@@ -34,6 +34,13 @@ public class ShoppingcartController {
     // 添加购物车项
     @PostMapping("/save")
     public Result save(Shoppingcart shoppingcart) {
+        Shoppingcart one = shoppingcartService.selectOneByOrderIdAndOwnName(shoppingcart.getOrderId(), shoppingcart.getOwnName());
+        // 假如该项已经存在，则将原本的数量+1，然后返回
+        if (one != null) {
+            return updateCount(1, one.getShoppingId());
+        }
+
+        // 向数据库中添加数据
         shoppingcart.setCreateTime(new Date());
         shoppingcart.setUpdateTime(new Date());
         shoppingcartService.save(shoppingcart);

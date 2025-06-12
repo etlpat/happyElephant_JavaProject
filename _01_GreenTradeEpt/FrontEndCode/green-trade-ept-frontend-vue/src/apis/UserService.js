@@ -24,3 +24,19 @@ export async function userInfo(username) {
     })
   ).data;
 }
+
+// 修改细节信息
+export async function updateDetail(user) {
+  return (await newAxios.post("/user/updateDetail", user)).data;
+}
+
+// 更新用户密码（使用PATCH方法）
+export async function updatePassword(pwdMap) {
+  return (
+    await newAxios.patch("/user/updatePassword", pwdMap, {
+      headers: {
+        "Content-Type": "application/json", // 明确指定JSON格式
+      },
+    })
+  ).data;
+}

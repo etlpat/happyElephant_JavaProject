@@ -91,14 +91,27 @@ export default {
 
 <style lang="scss" scoped>
 #login {
-    background-image: url(../assets/imgs/login.png);
+    position: relative; // 父容器设为相对定位
     width: 100%;
     height: 820px;
-    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    // 添加伪元素作为背景层
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(../assets/imgs/login.png);
+        background-size: cover;
+        opacity: 0.88; // 背景图透明度 80%
+        z-index: -1; // 确保背景在内容下方
+    }
 
     >span:nth-child(1) {
         font-size: 20px;

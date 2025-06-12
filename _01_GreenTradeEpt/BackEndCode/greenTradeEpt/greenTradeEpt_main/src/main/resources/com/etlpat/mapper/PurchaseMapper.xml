@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etlpat.mapper.PurchaseMapper">
+
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.Purchase">
+            <id property="purchaseId" column="purchase_id" />
+            <result property="ownName" column="own_name" />
+            <result property="purchaseType" column="purchase_type" />
+            <result property="totalPrice" column="total_price" />
+            <result property="address" column="address" />
+            <result property="purchaseStatus" column="purchase_status" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        purchase_id,own_name,purchase_type,total_price,address,purchase_status,
+        create_time,update_time
+    </sql>
+</mapper>
