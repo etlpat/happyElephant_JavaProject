@@ -11,12 +11,18 @@ DESC tb_order;
 SELECT * FROM tb_order;
 SELECT * FROM tb_order ORDER BY order_id ASC;
 # UPDATE tb_order SET picture = CONCAT(order_id, title, '.png');
+SELECT * FROM tb_order 
+	WHERE title LIKE '%西瓜%' 
+	OR content LIKE '%西瓜%' 
+	OR own_name LIKE '%西瓜%';
 
 
 # 3.农业知识表
 DESC tb_knowledge;
 SELECT * FROM tb_knowledge;
 # UPDATE tb_knowledge SET pic_path = CONCAT(knowledge_id, title, '.png');
+
+SELECT * FROM tb_knowledge;
 
 
 # 4.农业知识评论表
