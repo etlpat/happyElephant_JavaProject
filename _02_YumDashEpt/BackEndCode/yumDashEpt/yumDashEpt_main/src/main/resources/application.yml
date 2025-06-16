@@ -1,0 +1,29 @@
+spring:
+  datasource: # (1)配置druid数据库连接池
+    type: com.alibaba.druid.pool.DruidDataSource # 使用druid连接池
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/yumDashEpt
+      username: root
+      password: JMGMKSZ1919810
+#  data:
+#    redis: # (3)配置Redis连接池的连接信息
+#      host: 192.168.238.130 # Linux虚拟机ip地址
+#      port: 6379 # Redis的端口号
+#      password: JMGMKSZ1919810
+#      lettuce: # 注意：spring默认使用lettuce进行Redis的操作！
+#        pool:
+#          max-active: 8 # 最大连接数
+#          max-idle: 8 # 最大空闲连接数
+#          min-idle: 0 # 最小空闲连接数
+#          max-wait: 200 # 最长等待时间(ms)
+
+
+# (2)进行myBatis-plus的配置
+# 注意：myBatis-plus默认自动开启驼峰式映射
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 配置日志信息
+  global-config:
+    db-config:
+      id-type: assign_id # 配置主键策略为雪花算法（对分布式友好）
