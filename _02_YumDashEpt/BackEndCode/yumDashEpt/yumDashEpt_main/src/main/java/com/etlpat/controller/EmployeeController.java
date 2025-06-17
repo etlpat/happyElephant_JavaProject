@@ -1,17 +1,16 @@
 package com.etlpat.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.etlpat.pojo.Employee;
 import com.etlpat.pojo.R;
 import com.etlpat.service.EmployeeService;
 import com.etlpat.utils.MD5Util;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
+// 后台管理端 -- 员工表
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -49,6 +48,43 @@ public class EmployeeController {
     public R logout(HttpServletRequest request) {
         request.getSession().removeAttribute("employee");// 删除session中当前登录员工的id
         return R.success();
+    }
+
+
+    // 添加员工
+    @PostMapping
+    public R save(@RequestBody Employee employee) {
+        employee.setPassword(MD5Util.getMD5String("123456"));// 设置初始密码
+        employeeService.save(employee);
+        return R.success();
+    }
+
+
+    // 分页查询员工信息
+    @GetMapping("/page")
+    public R<Page<Employee>> getPageByName(Integer page, Integer pageSize, String name) {
+        Page<Employee> pageByName = employeeService.getPageByName(page, pageSize, name);
+        return R.success(pageByName);
+    }
+
+
+    // 更新员工信息
+    @PutMapping
+    public R updateById(@RequestBody Employee employee) {
+        employeeService.updateById(employee);
+        return R.success();
+    }
+
+
+    // 根据id获取员工
+    @GetMapping("/{id}")
+    public R<Employee> getById(@PathVariable Long id) {
+        Employee byId = employeeService.getById(id);
+        if (byId == null) {
+            return R.error("员工不存在");
+        }
+
+        return R.success(byId);
     }
 
 }

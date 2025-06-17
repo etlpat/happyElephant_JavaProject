@@ -1,7 +1,9 @@
 package com.etlpat.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.etlpat.pojo.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.etlpat.pojo.R;
 
 /**
  * @author lenovo
@@ -10,4 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EmployeeService extends IService<Employee> {
     Employee getByUsername(String username);
+
+    Page<Employee> getPageByName(Integer page, Integer pageSize, String name);
 }

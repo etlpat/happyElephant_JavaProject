@@ -51,6 +51,7 @@ INSERT INTO `address_book` VALUES ('1417414926166769666', '1417012167126876162',
 -- ----------------------------
 -- Table structure for category
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` BIGINT(20) NOT NULL COMMENT '主键',
@@ -64,10 +65,11 @@ CREATE TABLE `category` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `idx_category_name` (`name`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='菜品及套餐分类';
-
+*/
 -- ----------------------------
 -- Records of category
 -- ----------------------------
+/*
 INSERT INTO `category` VALUES ('1397844263642378242', '1', '湘菜', '1', '2021-05-27 09:16:58', '2021-07-15 20:25:23', '1', '1');
 INSERT INTO `category` VALUES ('1397844303408574465', '1', '川菜', '2', '2021-05-27 09:17:07', '2021-06-02 14:27:22', '1', '1');
 INSERT INTO `category` VALUES ('1397844391040167938', '1', '粤菜', '3', '2021-05-27 09:17:28', '2021-07-09 14:37:13', '1', '1');
@@ -75,6 +77,7 @@ INSERT INTO `category` VALUES ('1413341197421846529', '1', '饮品', '11', '2021
 INSERT INTO `category` VALUES ('1413342269393674242', '2', '商务套餐', '5', '2021-07-09 11:40:30', '2021-07-09 14:43:45', '1', '1');
 INSERT INTO `category` VALUES ('1413384954989060097', '1', '主食', '12', '2021-07-09 14:30:07', '2021-07-09 14:39:19', '1', '1');
 INSERT INTO `category` VALUES ('1413386191767674881', '2', '儿童套餐', '6', '2021-07-09 14:35:02', '2021-07-09 14:39:05', '1', '1');
+*/
 
 -- ----------------------------
 -- Table structure for dish
@@ -213,6 +216,7 @@ INSERT INTO `dish_flavor` VALUES ('1413389684020682754', '1413342036832100354', 
 -- ----------------------------
 -- Table structure for employee
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `id` BIGINT(20) NOT NULL COMMENT '主键',
@@ -230,12 +234,14 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `idx_username` (`username`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='员工信息';
+*/
 
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
+/*
 INSERT INTO `employee` VALUES ('1', '管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '13812312312', '1', '110101199001010047', '1', '2021-05-06 17:20:07', '2021-05-10 02:24:09', '1', '1');
-
+*/
 -- ----------------------------
 -- Table structure for orders
 -- ----------------------------

@@ -2,6 +2,7 @@ package com.etlpat.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.etlpat.pojo.R;
+import com.etlpat.utils.ThreadLocalUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,36 +37,44 @@ public class LoginCheckFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        // 1、获取本次请求的URI
-        String requestURI = request.getRequestURI();
+        try {
+            // 1、获取本次请求的URI
+            String requestURI = request.getRequestURI();
 
-        // 定义直接放行的路径
-        String[] uris = new String[]{
-                "/employee/login",// 登录请求
-                "/employee/logout",// 登出请求
-                "/backend/**",// 服务端的静态页面（并非请求）
-                "/front/**"// 客户端的静态页面（并非请求）
-        };
+            // 定义直接放行的路径
+            String[] uris = new String[]{
+                    "/employee/login",// 登录请求
+                    "/employee/logout",// 登出请求
+                    "/backend/**",// 服务端的静态页面（并非请求）
+                    "/front/**"// 客户端的静态页面（并非请求）
+            };
 
-        // 2、判断本次请求是否需要处理
-        boolean isMatch = checkMatch(requestURI, uris);
+            // 2、判断本次请求是否需要处理
+            boolean isMatch = checkMatch(requestURI, uris);
 
-        // 3、如果不需要处理, 则直接放行
-        if (isMatch) {
-            filterChain.doFilter(request, response);// 放行
+            // 3、如果不需要处理, 则直接放行
+            if (isMatch) {
+                filterChain.doFilter(request, response);// 放行
+                return;
+            }
+
+            // 4、判断登录状态, 如果已登录, 则直接放行，并将登录用户id存入ThreadLocal中
+            Long loginId = (Long) request.getSession().getAttribute("employee");
+            if (loginId != null) {// 已登录
+                ThreadLocalUtil.set(loginId);// 将当前登录用户id存入ThreadLocal中
+                filterChain.doFilter(request, response);// 放行
+                return;
+            }
+
+            // 5、如果未登录则返回未登录结果
+            // 注意：向前端发送R.error("NOTLOGIN")，前端会处理并跳转到登录界面
+            response.getWriter().write(JSON.toJSONString(R.error("NOTLOGIN")));// 前端接收后，跳转到登录界面
             return;
-        }
 
-        // 4、判断登录状态, 如果已登录, 则直接放行
-        if (request.getSession().getAttribute("employee") != null) {
-            filterChain.doFilter(request, response);// 放行
-            return;
+        } finally {
+            // 移除ThreadLocal中用户数据，防止内存泄漏
+            ThreadLocalUtil.remove();
         }
-
-        // 5、如果未登录则返回未登录结果
-        // 注意：向前端发送R.error("NOTLOGIN")，前端会处理并跳转到登录界面
-        response.getWriter().write(JSON.toJSONString(R.error("NOTLOGIN")));// 前端接收后，跳转到登录界面
-        return;
     }
 
 
