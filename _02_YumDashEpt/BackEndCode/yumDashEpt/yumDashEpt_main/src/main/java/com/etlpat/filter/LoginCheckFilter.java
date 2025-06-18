@@ -45,6 +45,7 @@ public class LoginCheckFilter implements Filter {
             String[] uris = new String[]{
                     "/employee/login",// 登录请求
                     "/employee/logout",// 登出请求
+                    "/common/**",// 文件上传/下载请求
                     "/backend/**",// 服务端的静态页面（并非请求）
                     "/front/**"// 客户端的静态页面（并非请求）
             };

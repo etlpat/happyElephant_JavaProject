@@ -7,6 +7,8 @@ import com.etlpat.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 // 后台管理端 -- 分类表
 @RestController
@@ -43,8 +45,16 @@ public class CategoryController {
     // 删除分类信息
     @DeleteMapping
     public R removeById(Long ids) {
-        categoryService.removeById(ids);
+        categoryService.remove(ids);
         return R.success();
+    }
+
+
+    // 根据type获取分类信息
+    @GetMapping("/list")
+    public R<List<Category>> getByType(Integer type) {
+        List<Category> byType = categoryService.getByType(type);
+        return R.success(byType);
     }
 
 }

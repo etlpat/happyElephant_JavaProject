@@ -6,6 +6,11 @@ spring:
       url: jdbc:mysql://localhost:3306/yumDashEpt
       username: root
       password: JMGMKSZ1919810
+  servlet:
+    multipart: # 配置文件上传的相关参数
+      enabled: true      # 是否启用文件上传支持
+      max-file-size: 10MB  # 单个文件的最大大小限制
+      max-request-size: 20MB # 单个请求的最大总大小限制
 #  data:
 #    redis: # (3)配置Redis连接池的连接信息
 #      host: 192.168.238.130 # Linux虚拟机ip地址
@@ -27,3 +32,10 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: assign_id # 配置主键策略为雪花算法（对分布式友好）
+
+
+
+# 自定义文件上传目录
+yum-dash-ept:
+  # 将文件的上传路径，设置为项目根目录下的“uploadFile”文件夹
+  upload-path: ${user.dir}\uploadFile\ # 使用系统属性获取项目根目录

@@ -1,4 +1,4 @@
-// 查询列表接口
+// 查询列表接口 yes
 const getCategoryPage = (params) => {
   return $axios({
     url: '/category/page',
@@ -15,7 +15,7 @@ const queryCategoryById = (id) => {
   })
 }
 
-// 删除当前列的接口
+// 删除当前列的接口 yes
 const deleCategory = (ids) => {
   return $axios({
     url: '/category',
@@ -24,7 +24,7 @@ const deleCategory = (ids) => {
   })
 }
 
-// 修改接口
+// 修改接口 yes
 const editCategory = (params) => {
   return $axios({
     url: '/category',
@@ -33,7 +33,7 @@ const editCategory = (params) => {
   })
 }
 
-// 新增接口
+// 新增接口 yes
 const addCategory = (params) => {
   return $axios({
     url: '/category',

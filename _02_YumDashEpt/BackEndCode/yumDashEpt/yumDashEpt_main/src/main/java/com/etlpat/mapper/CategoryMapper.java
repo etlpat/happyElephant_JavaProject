@@ -1,5 +1,9 @@
 package com.etlpat.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.etlpat.pojo.Category;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -10,7 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @Entity com.etlpat.pojo.Category
  */
 public interface CategoryMapper extends BaseMapper<Category> {
-
+    List<Category> selectAllByType(@Param("type") Integer type);
 }
 
 

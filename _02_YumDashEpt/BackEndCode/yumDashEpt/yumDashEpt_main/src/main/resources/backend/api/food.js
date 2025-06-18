@@ -1,4 +1,4 @@
-// 查询列表接口
+// 查询列表接口 yes
 const getDishPage = (params) => {
   return $axios({
     url: '/dish/page',
@@ -16,7 +16,7 @@ const deleteDish = (ids) => {
   })
 }
 
-// 修改接口
+// 修改接口 yes
 const editDish = (params) => {
   return $axios({
     url: '/dish',
@@ -25,7 +25,7 @@ const editDish = (params) => {
   })
 }
 
-// 新增接口
+// 新增接口 yes
 const addDish = (params) => {
   return $axios({
     url: '/dish',
@@ -34,7 +34,7 @@ const addDish = (params) => {
   })
 }
 
-// 查询详情
+// 查询详情 yes
 const queryDishById = (id) => {
   return $axios({
     url: `/dish/${id}`,
@@ -42,7 +42,7 @@ const queryDishById = (id) => {
   })
 }
 
-// 获取菜品分类列表
+// 获取菜品分类列表 yes
 const getCategoryList = (params) => {
   return $axios({
     url: '/category/list',
@@ -51,7 +51,7 @@ const getCategoryList = (params) => {
   })
 }
 
-// 查菜品列表的接口
+// 查菜品列表的接口 yes
 const queryDishList = (params) => {
   return $axios({
     url: '/dish/list',
