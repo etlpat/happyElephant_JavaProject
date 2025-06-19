@@ -47,25 +47,34 @@ public class LoginCheckFilter implements Filter {
                     "/employee/logout",// 登出请求
                     "/common/**",// 文件上传/下载请求
                     "/backend/**",// 服务端的静态页面（并非请求）
-                    "/front/**"// 客户端的静态页面（并非请求）
+                    "/front/**",// 客户端的静态页面（并非请求）
+                    "/user/login",// 客户端登录
+                    "/user/loginout"// 客户端登出
             };
 
             // 2、判断本次请求是否需要处理
             boolean isMatch = checkMatch(requestURI, uris);
-
-            // 3、如果不需要处理, 则直接放行
-            if (isMatch) {
+            if (isMatch) {// 若与放行路径匹配
                 filterChain.doFilter(request, response);// 放行
                 return;
             }
 
-            // 4、判断登录状态, 如果已登录, 则直接放行，并将登录用户id存入ThreadLocal中
-            Long loginId = (Long) request.getSession().getAttribute("employee");
-            if (loginId != null) {// 已登录
-                ThreadLocalUtil.set(loginId);// 将当前登录用户id存入ThreadLocal中
+            // 3、判断管理端登录状态, 如果已登录, 则直接放行，并将登录用户id存入ThreadLocal中
+            Long adminLoginId = (Long) request.getSession().getAttribute("employee");
+            if (adminLoginId != null) {// 管理端已登录
+                ThreadLocalUtil.set(adminLoginId);// 将当前登录用户id存入ThreadLocal中
                 filterChain.doFilter(request, response);// 放行
                 return;
             }
+
+//            // 疑似bug代码如下：
+//            // 4、判断客户端登录状态, 如果已登录, 则直接放行，并将登录用户id存入ThreadLocal中
+//            Long clientLoginId = (Long) request.getSession().getAttribute("user");
+//            if (clientLoginId != null) {// 客户端已登录
+//                ThreadLocalUtil.set(clientLoginId);// 将当前登录用户id存入ThreadLocal中
+//                filterChain.doFilter(request, response);// 放行
+//                return;
+//            }
 
             // 5、如果未登录则返回未登录结果
             // 注意：向前端发送R.error("NOTLOGIN")，前端会处理并跳转到登录界面

@@ -30,4 +30,9 @@
         from setmeal
         where category_id = #{categoryId,jdbcType=NUMERIC}
     </select>
+    <update id="updateStatusById">
+        update setmeal
+        set status = #{status,jdbcType=NUMERIC}
+        where id = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>

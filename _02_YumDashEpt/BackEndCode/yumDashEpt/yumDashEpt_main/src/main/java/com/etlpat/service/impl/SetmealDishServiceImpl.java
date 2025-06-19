@@ -7,6 +7,8 @@ import com.etlpat.mapper.SetmealDishMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author lenovo
  * @description 针对表【setmeal_dish(套餐菜品关系)】的数据库操作Service实现
@@ -18,6 +20,15 @@ public class SetmealDishServiceImpl extends ServiceImpl<SetmealDishMapper, Setme
     @Autowired
     SetmealDishMapper setmealDishMapper;
 
+    @Override
+    public List<SetmealDish> getAllBySetmealId(Long setmealId) {
+        return setmealDishMapper.getAllBySetmealId(setmealId);
+    }
+
+    @Override
+    public int deleteBySetmealId(Long setmealId) {
+        return setmealDishMapper.deleteBySetmealId(setmealId);
+    }
 }
 
 

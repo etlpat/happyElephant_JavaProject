@@ -17,6 +17,9 @@ SELECT * FROM category;
 DESC dish;
 SELECT * FROM dish;
 
+UPDATE dish SET is_deleted = 0;
+UPDATE dish SET STATUS = 1;
+
 
 # 4.菜品口味表 -- 管理端
 DESC dish_flavor;
@@ -27,7 +30,15 @@ SELECT * FROM dish_flavor;
 DESC setmeal;
 SELECT * FROM setmeal;
 
+UPDATE setmeal SET is_deleted = 0;
+UPDATE setmeal SET STATUS = 1;
+
 
 # 6.套餐菜品关系表 -- 管理端
 DESC setmeal_dish;
 SELECT * FROM setmeal_dish;
+
+
+# 7.用户表 -- 用户端
+DESC USER;
+SELECT * FROM USER;

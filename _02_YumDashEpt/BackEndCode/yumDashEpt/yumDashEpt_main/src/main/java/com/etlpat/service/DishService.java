@@ -16,4 +16,8 @@ public interface DishService extends IService<Dish> {
     Page<DishDto> getPageByName(Integer page, Integer pageSize, String name);
 
     List<Dish> getList(Dish dish);
+
+    int deleteById(Long id);
+
+    int updateStatusById(Integer status, Long id);
 }

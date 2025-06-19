@@ -1,6 +1,7 @@
 package com.etlpat.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.etlpat.common.exception.MyException;
 import com.etlpat.pojo.Dish;
 import com.etlpat.pojo.DishFlavor;
 import com.etlpat.pojo.R;
@@ -90,4 +91,29 @@ public class DishController {
         List<Dish> list = dishService.getList(dish);
         return R.success(list);
     }
+
+
+    // 删除菜品
+    @Transactional
+    @DeleteMapping
+    public R remove(@RequestParam List<Long> ids) {
+        for (Long id : ids) {
+            if (dishService.deleteById(id) == 0) {// 删除失败
+                throw new MyException("只能删除停售的菜品");// 抛出异常，全部回滚（事务）
+            }
+        }
+        return R.success();
+    }
+
+
+    // 更新套餐状态
+    @Transactional
+    @PostMapping("/status/{status}")
+    public R updateStatus(@PathVariable Integer status, @RequestParam List<Long> ids) {
+        for (Long id : ids) {
+            dishService.updateStatusById(status, id);
+        }
+        return R.success();
+    }
+
 }

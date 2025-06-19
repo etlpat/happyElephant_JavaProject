@@ -13,6 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface DishMapper extends BaseMapper<Dish> {
     int countByCategoryId(@Param("categoryId") Long categoryId);
+
+    int updateStatusById(@Param("status") Integer status, @Param("id") Long id);
 }
 
 

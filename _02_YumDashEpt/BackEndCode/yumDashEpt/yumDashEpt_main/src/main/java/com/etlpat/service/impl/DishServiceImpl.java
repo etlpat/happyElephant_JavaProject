@@ -1,13 +1,12 @@
 package com.etlpat.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etlpat.mapper.CategoryMapper;
-import com.etlpat.mapper.DishFlavorMapper;
 import com.etlpat.pojo.Category;
 import com.etlpat.pojo.Dish;
-import com.etlpat.pojo.DishFlavor;
 import com.etlpat.pojo.dto.DishDto;
 import com.etlpat.service.DishService;
 import com.etlpat.mapper.DishMapper;
@@ -42,6 +41,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
         // (1)获取dish分页数据
         LambdaQueryWrapper<Dish> wrapper = new LambdaQueryWrapper<Dish>()
                 .like(!StringUtils.isNullOrEmpty(name), Dish::getName, name)
+                .eq(Dish::getIsDeleted, 0)
                 .orderByAsc(Dish::getSort)
                 .orderByDesc(Dish::getUpdateTime);
         Page<Dish> dishPage = PageQueryUtil.getPage(page, pageSize, wrapper, dishMapper);
@@ -79,9 +79,27 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
                 .eq(dish.getCategoryId() != null, Dish::getCategoryId, dish.getCategoryId())
                 .like(!StringUtils.isNullOrEmpty(dish.getName()), Dish::getName, dish.getName())
                 .eq(Dish::getStatus, 1)// 只查询状态为1的菜品（起售状态）
+                .eq(Dish::getIsDeleted, 0)
                 .orderByAsc(Dish::getSort)
                 .orderByDesc(Dish::getUpdateTime);
         return dishMapper.selectList(wrapper);
+    }
+
+
+    // 根据id删除（不能删除起售中的数据）
+    @Override
+    public int deleteById(Long id) {
+        LambdaUpdateWrapper<Dish> wrapper = new LambdaUpdateWrapper<Dish>()
+                .set(Dish::getIsDeleted, 1)
+                .eq(Dish::getId, id)
+                .eq(Dish::getStatus, 0);
+        return dishMapper.update(null, wrapper);
+    }
+
+
+    @Override
+    public int updateStatusById(Integer status, Long id) {
+        return dishMapper.updateStatusById(status, id);
     }
 
 }

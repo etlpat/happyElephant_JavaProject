@@ -7,7 +7,7 @@ const getDishPage = (params) => {
   })
 }
 
-// 删除接口
+// 删除接口 yes
 const deleteDish = (ids) => {
   return $axios({
     url: '/dish',
@@ -72,7 +72,7 @@ const commonDownload = (params) => {
   })
 }
 
-// 起售停售---批量起售停售接口
+// 起售停售---批量起售停售接口 yes
 const dishStatusByStatus = (params) => {
   return $axios({
     url: `/dish/status/${params.status}`,

@@ -376,6 +376,7 @@ CREATE TABLE `shopping_cart` (
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` BIGINT(20) NOT NULL COMMENT '主键',
@@ -387,3 +388,4 @@ CREATE TABLE `user` (
   `status` INT(11) DEFAULT '0' COMMENT '状态 0:禁用，1:正常',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户信息';
+*/

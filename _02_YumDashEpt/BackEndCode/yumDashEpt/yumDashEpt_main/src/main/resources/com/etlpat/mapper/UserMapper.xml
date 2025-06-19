@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etlpat.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.User">
+            <id property="id" column="id" />
+            <result property="name" column="name" />
+            <result property="phone" column="phone" />
+            <result property="sex" column="sex" />
+            <result property="idNumber" column="id_number" />
+            <result property="avatar" column="avatar" />
+            <result property="status" column="status" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,phone,sex,id_number,avatar,
+        status
+    </sql>
+    <select id="getOneByPhone" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        phone = #{phone,jdbcType=VARCHAR}
+    </select>
+</mapper>

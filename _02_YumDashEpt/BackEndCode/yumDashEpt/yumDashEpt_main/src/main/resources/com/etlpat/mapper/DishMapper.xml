@@ -31,4 +31,9 @@
         from dish
         where category_id = #{categoryId,jdbcType=NUMERIC}
     </select>
+    <update id="updateStatusById">
+        update dish
+        set status = #{status,jdbcType=NUMERIC}
+        where id = #{id,jdbcType=NUMERIC}
+    </update>
 </mapper>
