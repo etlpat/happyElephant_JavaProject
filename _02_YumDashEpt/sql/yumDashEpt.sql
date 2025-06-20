@@ -12,12 +12,13 @@ File Encoding         : 65001
 
 Date: 2021-07-23 10:41:41
 */
-
+/*
 SET FOREIGN_KEY_CHECKS=0;
-
+*/
 -- ----------------------------
 -- Table structure for address_book
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `address_book`;
 CREATE TABLE `address_book` (
   `id` BIGINT(20) NOT NULL COMMENT '主键',
@@ -41,13 +42,14 @@ CREATE TABLE `address_book` (
   `is_deleted` INT(11) NOT NULL DEFAULT '0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='地址管理';
-
+*/
 -- ----------------------------
 -- Records of address_book
 -- ----------------------------
+/*
 INSERT INTO `address_book` VALUES ('1417414526093082626', '1417012167126876162', '小明', '1', '13812345678', NULL, NULL, NULL, NULL, NULL, NULL, '昌平区金燕龙办公楼', '公司', '1', '2021-07-20 17:22:12', '2021-07-20 17:26:33', '1417012167126876162', '1417012167126876162', '0');
 INSERT INTO `address_book` VALUES ('1417414926166769666', '1417012167126876162', '小李', '1', '13512345678', NULL, NULL, NULL, NULL, NULL, NULL, '测试', '家', '0', '2021-07-20 17:23:47', '2021-07-20 17:23:47', '1417012167126876162', '1417012167126876162', '0');
-
+*/
 -- ----------------------------
 -- Table structure for category
 -- ----------------------------
@@ -354,6 +356,7 @@ INSERT INTO `setmeal_dish` VALUES ('1415580119069671426', '1415580119015145474',
 -- ----------------------------
 -- Table structure for shopping_cart
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `shopping_cart`;
 CREATE TABLE `shopping_cart` (
   `id` BIGINT(20) NOT NULL COMMENT '主键',
@@ -368,7 +371,7 @@ CREATE TABLE `shopping_cart` (
   `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='购物车';
-
+*/
 -- ----------------------------
 -- Records of shopping_cart
 -- ----------------------------

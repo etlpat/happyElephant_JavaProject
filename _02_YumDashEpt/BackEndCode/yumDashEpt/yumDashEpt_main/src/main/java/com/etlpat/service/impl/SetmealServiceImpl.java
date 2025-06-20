@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author lenovo
@@ -78,6 +79,19 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
     @Override
     public int updateStatusById(Integer status, Long id) {
         return setmealMapper.updateStatusById(status, id);
+    }
+
+
+    // 根据条件查询套餐列表
+    @Override
+    public List<Setmeal> getList(Setmeal setmeal) {
+        LambdaQueryWrapper<Setmeal> wrapper = new LambdaQueryWrapper<Setmeal>()
+                .eq(setmeal.getCategoryId() != null, Setmeal::getCategoryId, setmeal.getCategoryId())
+                .like(!StringUtils.isNullOrEmpty(setmeal.getName()), Setmeal::getName, setmeal.getName())
+                .eq(Setmeal::getStatus, 1)// 只查询状态为1的套餐（起售状态）
+                .eq(Setmeal::getIsDeleted, 0)
+                .orderByDesc(Setmeal::getUpdateTime);
+        return setmealMapper.selectList(wrapper);
     }
 
 }

@@ -106,4 +106,12 @@ public class SetmealController {
         return R.success();
     }
 
+
+    // 根据条件查询套餐列表
+    @GetMapping("/list")
+    public R<List<Setmeal>> getList(Setmeal setmeal) {
+        List<Setmeal> serviceList = setmealService.getList(setmeal);
+        return R.success(serviceList);
+    }
+
 }

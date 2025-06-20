@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etlpat.mapper.AddressBookMapper">
+
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.AddressBook">
+            <id property="id" column="id" />
+            <result property="userId" column="user_id" />
+            <result property="consignee" column="consignee" />
+            <result property="sex" column="sex" />
+            <result property="phone" column="phone" />
+            <result property="provinceCode" column="province_code" />
+            <result property="provinceName" column="province_name" />
+            <result property="cityCode" column="city_code" />
+            <result property="cityName" column="city_name" />
+            <result property="districtCode" column="district_code" />
+            <result property="districtName" column="district_name" />
+            <result property="detail" column="detail" />
+            <result property="label" column="label" />
+            <result property="isDefault" column="is_default" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="createUser" column="create_user" />
+            <result property="updateUser" column="update_user" />
+            <result property="isDeleted" column="is_deleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,consignee,sex,phone,province_code,
+        province_name,city_code,city_name,district_code,district_name,
+        detail,label,is_default,create_time,update_time,
+        create_user,update_user,is_deleted
+    </sql>
+    <update id="setIsDefaultByUserId">
+        update address_book
+        set is_default = #{isDefault,jdbcType=NUMERIC}
+        where user_id = #{userId,jdbcType=NUMERIC}
+    </update>
+    <select id="selectOneByUserIdAndIsDefault" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from address_book
+        where
+        user_id = #{userId,jdbcType=NUMERIC}
+        AND is_default = #{isDefault,jdbcType=NUMERIC}
+    </select>
+</mapper>

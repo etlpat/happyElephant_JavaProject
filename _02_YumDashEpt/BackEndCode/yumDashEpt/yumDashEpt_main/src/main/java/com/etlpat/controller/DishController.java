@@ -87,8 +87,8 @@ public class DishController {
 
     // 根据条件查询菜品列表
     @GetMapping("/list")
-    public R<List<Dish>> getList(Dish dish) {
-        List<Dish> list = dishService.getList(dish);
+    public R<List<DishDto>> getList(Dish dish) {
+        List<DishDto> list = dishService.getList(dish);
         return R.success(list);
     }
 

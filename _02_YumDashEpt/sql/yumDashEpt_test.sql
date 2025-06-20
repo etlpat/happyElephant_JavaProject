@@ -42,3 +42,15 @@ SELECT * FROM setmeal_dish;
 # 7.用户表 -- 用户端
 DESC USER;
 SELECT * FROM USER;
+# update user set status = 1;
+
+
+# 8.地址表 -- 用户端
+DESC address_book;
+SELECT * FROM address_book;
+SELECT * FROM address_book WHERE province_code IS NULL;
+
+
+# 9.购物车表 -- 用户端
+DESC shopping_cart;
+SELECT * FROM shopping_cart;

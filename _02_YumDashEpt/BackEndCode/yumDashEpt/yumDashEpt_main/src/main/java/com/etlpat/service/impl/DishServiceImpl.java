@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etlpat.mapper.CategoryMapper;
+import com.etlpat.mapper.DishFlavorMapper;
 import com.etlpat.pojo.Category;
 import com.etlpat.pojo.Dish;
+import com.etlpat.pojo.DishFlavor;
 import com.etlpat.pojo.dto.DishDto;
 import com.etlpat.service.DishService;
 import com.etlpat.mapper.DishMapper;
@@ -33,6 +35,8 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
 
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private DishFlavorMapper dishFlavorMapper;
 
 
     // 根据name分页查询
@@ -74,7 +78,8 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
 
     // 根据条件查询菜品列表
     @Override
-    public List<Dish> getList(Dish dish) {
+    public List<DishDto> getList(Dish dish) {
+        // (1)获取Dish列表
         LambdaQueryWrapper<Dish> wrapper = new LambdaQueryWrapper<Dish>()
                 .eq(dish.getCategoryId() != null, Dish::getCategoryId, dish.getCategoryId())
                 .like(!StringUtils.isNullOrEmpty(dish.getName()), Dish::getName, dish.getName())
@@ -82,7 +87,18 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish>
                 .eq(Dish::getIsDeleted, 0)
                 .orderByAsc(Dish::getSort)
                 .orderByDesc(Dish::getUpdateTime);
-        return dishMapper.selectList(wrapper);
+        List<Dish> dishList = dishMapper.selectList(wrapper);
+
+        // (2)将Dish列表转化为DishDto列表
+        List<DishDto> dishDtoList = new ArrayList<>();
+        for (Dish d : dishList) {
+            DishDto dto = new DishDto();
+            BeanUtils.copyProperties(d, dto);
+            List<DishFlavor> flavors = dishFlavorMapper.getAllByDishId(dto.getId());
+            dto.setFlavors(flavors);
+            dishDtoList.add(dto);
+        }
+        return dishDtoList;
     }
 
 

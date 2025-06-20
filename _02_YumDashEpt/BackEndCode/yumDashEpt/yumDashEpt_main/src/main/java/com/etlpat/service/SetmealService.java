@@ -5,6 +5,8 @@ import com.etlpat.pojo.Setmeal;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.etlpat.pojo.dto.SetmealDto;
 
+import java.util.List;
+
 /**
  * @author lenovo
  * @description 针对表【setmeal(套餐)】的数据库操作Service
@@ -16,4 +18,6 @@ public interface SetmealService extends IService<Setmeal> {
     int deleteById(Long id);
 
     int updateStatusById(Integer status, Long id);
+
+    List<Setmeal> getList(Setmeal setmeal);
 }

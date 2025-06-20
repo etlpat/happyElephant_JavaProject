@@ -15,7 +15,7 @@ import java.util.List;
 public interface DishService extends IService<Dish> {
     Page<DishDto> getPageByName(Integer page, Integer pageSize, String name);
 
-    List<Dish> getList(Dish dish);
+    List<DishDto> getList(Dish dish);
 
     int deleteById(Long id);
 
