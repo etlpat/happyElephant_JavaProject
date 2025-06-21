@@ -2,36 +2,35 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.etlpat.mapper.ShoppingCartMapper">
+<mapper namespace="com.etlpat.mapper.OrderDetailMapper">
 
-    <resultMap id="BaseResultMap" type="com.etlpat.pojo.ShoppingCart">
+    <resultMap id="BaseResultMap" type="com.etlpat.pojo.OrderDetail">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="image" column="image"/>
-        <result property="userId" column="user_id"/>
+        <result property="orderId" column="order_id"/>
         <result property="dishId" column="dish_id"/>
         <result property="setmealId" column="setmeal_id"/>
         <result property="dishFlavor" column="dish_flavor"/>
         <result property="number" column="number"/>
         <result property="amount" column="amount"/>
-        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id
-        ,name,image,user_id,dish_id,setmeal_id,
-        dish_flavor,number,amount,create_time
+        ,name,image,order_id,dish_id,setmeal_id,
+        dish_flavor,number,amount
     </sql>
-    <delete id="deleteByUserId">
-        delete
-        from shopping_cart
-        where user_id = #{userId,jdbcType=NUMERIC}
-    </delete>
-    <select id="selectAllByUserId" resultMap="BaseResultMap">
+    <select id="getByOrderId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from shopping_cart
+        from order_detail
         where
-        user_id = #{userId,jdbcType=NUMERIC}
+        order_id = #{orderId,jdbcType=NUMERIC}
     </select>
+    <delete id="deleteByOrderId">
+        delete
+        from order_detail
+        where order_id = #{orderId,jdbcType=NUMERIC}
+    </delete>
 </mapper>

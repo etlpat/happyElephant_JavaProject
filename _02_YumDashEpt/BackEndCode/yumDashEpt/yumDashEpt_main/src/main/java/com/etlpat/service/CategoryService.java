@@ -3,7 +3,6 @@ package com.etlpat.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.etlpat.pojo.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

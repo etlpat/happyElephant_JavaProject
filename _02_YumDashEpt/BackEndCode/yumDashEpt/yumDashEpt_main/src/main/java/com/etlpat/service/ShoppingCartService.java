@@ -3,6 +3,7 @@ package com.etlpat.service;
 import com.etlpat.pojo.ShoppingCart;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -22,4 +23,8 @@ public interface ShoppingCartService extends IService<ShoppingCart> {
     int getNumberByUserIdAndDishIdAndSetmealId(ShoppingCart shoppingCart);
 
     int deleteByUserId(Long userId);
+
+    BigDecimal selectTotalAmountByUserId(Long userId);
+
+    List<ShoppingCart> selectAllByUserId(Long userId);
 }

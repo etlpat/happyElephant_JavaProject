@@ -9,6 +9,7 @@ import com.etlpat.mapper.ShoppingCartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -80,6 +81,19 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
     public int deleteByUserId(Long userId) {
         return shoppingCartMapper.deleteByUserId(userId);
     }
+
+
+    @Override
+    public BigDecimal selectTotalAmountByUserId(Long userId) {
+        return shoppingCartMapper.selectTotalAmountByUserId(userId);
+    }
+
+
+    @Override
+    public List<ShoppingCart> selectAllByUserId(Long userId) {
+        return shoppingCartMapper.selectAllByUserId(userId);
+    }
+
 
 }
 

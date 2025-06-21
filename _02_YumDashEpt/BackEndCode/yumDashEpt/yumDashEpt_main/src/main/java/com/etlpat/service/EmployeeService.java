@@ -3,7 +3,6 @@ package com.etlpat.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.etlpat.pojo.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.etlpat.pojo.R;
 
 /**
  * @author lenovo

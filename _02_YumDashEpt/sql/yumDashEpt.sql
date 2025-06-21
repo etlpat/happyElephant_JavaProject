@@ -251,6 +251,7 @@ INSERT INTO `employee` VALUES ('1', '管理员', 'admin', 'e10adc3949ba59abbe56e
 -- ----------------------------
 -- Table structure for orders
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` BIGINT(20) NOT NULL COMMENT '主键',
@@ -269,7 +270,7 @@ CREATE TABLE `orders` (
   `consignee` VARCHAR(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单表';
-
+*/
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
@@ -277,6 +278,7 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Table structure for order_detail
 -- ----------------------------
+/*
 DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE `order_detail` (
   `id` BIGINT(20) NOT NULL COMMENT '主键',
@@ -290,7 +292,7 @@ CREATE TABLE `order_detail` (
   `amount` DECIMAL(10,2) NOT NULL COMMENT '金额',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单明细表';
-
+*/
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------

@@ -2,7 +2,6 @@ package com.etlpat.service;
 
 import com.etlpat.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * @author lenovo

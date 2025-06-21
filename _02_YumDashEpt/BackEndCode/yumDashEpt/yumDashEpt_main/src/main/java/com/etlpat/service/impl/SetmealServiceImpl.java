@@ -5,8 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etlpat.mapper.CategoryMapper;
+import com.etlpat.mapper.DishMapper;
+import com.etlpat.mapper.SetmealDishMapper;
 import com.etlpat.pojo.Category;
+import com.etlpat.pojo.Dish;
 import com.etlpat.pojo.Setmeal;
+import com.etlpat.pojo.SetmealDish;
+import com.etlpat.pojo.dto.DishDto;
 import com.etlpat.pojo.dto.SetmealDto;
 import com.etlpat.service.SetmealService;
 import com.etlpat.mapper.SetmealMapper;
@@ -28,10 +33,13 @@ import java.util.List;
 public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
         implements SetmealService {
     @Autowired
-    SetmealMapper setmealMapper;
-
+    private SetmealMapper setmealMapper;
     @Autowired
-    CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private DishMapper dishMapper;
 
 
     // 根据name分页查询
@@ -92,6 +100,24 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal>
                 .eq(Setmeal::getIsDeleted, 0)
                 .orderByDesc(Setmeal::getUpdateTime);
         return setmealMapper.selectList(wrapper);
+    }
+
+
+    // 获取套餐中的全部菜品
+    @Override
+    public List<DishDto> getDishListBySetmealId(Long id) {
+        List<SetmealDish> setmealDishList = setmealDishMapper.getAllBySetmealId(id);
+        List<DishDto> dishDtos = new ArrayList<>();
+
+        // 遍历setmealDish列表，获取每个关系对应的dish菜品，将其转换为dishDto添加到DishDto列表中
+        for (SetmealDish setmealDish : setmealDishList) {
+            DishDto dishDto = new DishDto();
+            Dish dish = dishMapper.selectById(setmealDish.getDishId());
+            BeanUtils.copyProperties(dish, dishDto);// 对象拷贝 dish->dishDto
+            dishDto.setCopies(setmealDish.getCopies());// 设置份数
+            dishDtos.add(dishDto);
+        }
+        return dishDtos;
     }
 
 }

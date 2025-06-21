@@ -54,3 +54,19 @@ SELECT * FROM address_book WHERE province_code IS NULL;
 # 9.购物车表 -- 用户端
 DESC shopping_cart;
 SELECT * FROM shopping_cart;
+# select sum(number * amount) from shopping_cart where user_id = 1935718294321422338;
+
+
+# 10.订单表 -- 用户端
+DESC orders;
+SELECT * FROM orders;
+# update orders set status = 2;
+
+
+# 11.订单细节表 -- 用户端
+DESC order_detail;
+SELECT * FROM order_detail;
+
+
+
+

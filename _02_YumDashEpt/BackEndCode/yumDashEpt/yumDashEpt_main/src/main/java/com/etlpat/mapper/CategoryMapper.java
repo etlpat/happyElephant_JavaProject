@@ -1,9 +1,5 @@
 package com.etlpat.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.etlpat.pojo.Category;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

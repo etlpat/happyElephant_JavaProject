@@ -3,6 +3,7 @@ package com.etlpat.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.etlpat.common.exception.MyException;
 import com.etlpat.pojo.*;
+import com.etlpat.pojo.dto.DishDto;
 import com.etlpat.pojo.dto.SetmealDto;
 import com.etlpat.service.SetmealDishService;
 import com.etlpat.service.SetmealService;
@@ -112,6 +113,14 @@ public class SetmealController {
     public R<List<Setmeal>> getList(Setmeal setmeal) {
         List<Setmeal> serviceList = setmealService.getList(setmeal);
         return R.success(serviceList);
+    }
+
+
+    // 获取套餐中的全部菜品
+    @GetMapping("/dish/{id}")
+    public R<List<DishDto>> getDishListBySetmealId(@PathVariable Long id) {
+        List<DishDto> dishDtoList = setmealService.getDishListBySetmealId(id);
+        return R.success(dishDtoList);
     }
 
 }

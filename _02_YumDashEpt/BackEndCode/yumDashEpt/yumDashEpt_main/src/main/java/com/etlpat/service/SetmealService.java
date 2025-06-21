@@ -3,6 +3,7 @@ package com.etlpat.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.etlpat.pojo.Setmeal;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.etlpat.pojo.dto.DishDto;
 import com.etlpat.pojo.dto.SetmealDto;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface SetmealService extends IService<Setmeal> {
     int updateStatusById(Integer status, Long id);
 
     List<Setmeal> getList(Setmeal setmeal);
+
+    List<DishDto> getDishListBySetmealId(Long id);
 }
