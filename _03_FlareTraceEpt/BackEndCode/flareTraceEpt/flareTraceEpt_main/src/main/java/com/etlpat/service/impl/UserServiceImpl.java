@@ -14,11 +14,16 @@ import com.etlpat.mapper.UserMapper;
 import com.etlpat.utils.RedisConstants;
 import com.etlpat.utils.RegexUtils;
 import com.etlpat.utils.SystemConstants;
+import com.etlpat.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -113,6 +118,63 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         save(user);
         return user;
     }
+
+
+    // 签到（基于Redis的BitMap位图）
+    @Override
+    public Result sign() {
+        // 1.获取key（键前缀:用户id:年:月）
+        Long userId = UserHolder.getUser().getId();
+        LocalDateTime now = LocalDateTime.now();
+        String keySuffix = now.format(DateTimeFormatter.ofPattern(":yyyy:MM"));
+        String signKey = RedisConstants.USER_SIGN_KEY + userId + keySuffix;
+        // 2.获取今天是本月的第几天
+        int dayOfMonth = now.getDayOfMonth();
+        // 3.使用BitMap位图进行签到
+        stringRedisTemplate.opsForValue().setBit(signKey, dayOfMonth - 1, true);// 由于下标从0开始，因此日期-1
+        return Result.ok();
+    }
+
+
+    // 本月的连续签到统计（基于Redis的BitMap位图）
+    @Override
+    public Result signCount() {
+        // 1.从Redis中获取本月截至今天的所有签到记录
+        Long userId = UserHolder.getUser().getId();
+        LocalDateTime now = LocalDateTime.now();
+        String keySuffix = now.format(DateTimeFormatter.ofPattern(":yyyy:MM"));
+        String signKey = RedisConstants.USER_SIGN_KEY + userId + keySuffix;
+        int dayOfMonth = now.getDayOfMonth();// 今天是本月的第几天
+        // 从Redis的BitMap位图中，获取本月至今的签到数据
+        List<Long> result = stringRedisTemplate.opsForValue().bitField(signKey,
+                BitFieldSubCommands.create()// 创建子命令
+                        .get(BitFieldSubCommands.BitFieldType.unsigned(dayOfMonth))// 总共获取dayOfMonth位
+                        .valueAt(0)// 从偏移量0开始获取
+        );
+        if (result == null || result.isEmpty()) {
+            return Result.ok(0);
+        }
+
+        // 2.获取二进制的签到数据
+        Long bitField = result.get(0);
+        if (bitField == null || bitField == 0) {
+            return Result.ok(0);
+        }
+
+        // 3.循环遍历，统计连续签到天数
+        int count = 0;
+        while (bitField != 0) {
+            if ((bitField & 1) == 1) {
+                count++;
+            } else {
+                break;
+            }
+            bitField >>>= 1;// 无符号右移
+        }
+        return Result.ok(count);
+    }
+
+
 }
 
 

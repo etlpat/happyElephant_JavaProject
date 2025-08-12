@@ -22,4 +22,14 @@
         ,shop_id,user_id,title,images,content,
         liked,comments,create_time,update_time
     </sql>
+    <update id="incrementLiked">
+        UPDATE tb_blog
+        SET liked = liked + 1
+        WHERE id = #{id}
+    </update>
+    <update id="decrementLiked">
+        UPDATE tb_blog
+        SET liked = GREATEST(liked - 1, 0)
+        WHERE id = #{id}
+    </update>
 </mapper>

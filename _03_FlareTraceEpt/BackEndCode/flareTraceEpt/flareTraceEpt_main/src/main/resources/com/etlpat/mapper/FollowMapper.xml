@@ -15,4 +15,21 @@
         id
         ,user_id,follow_user_id,create_time
     </sql>
+    <delete id="deleteByUserIdAndFollowUserId">
+        delete
+        from tb_follow
+        where user_id = #{userId,jdbcType=NUMERIC}
+          AND follow_user_id = #{followUserId,jdbcType=NUMERIC}
+    </delete>
+    <select id="countByUserIdAndFollowUserId" resultType="int">
+        select count(*)
+        from tb_follow
+        where user_id = #{userId,jdbcType=NUMERIC}
+          AND follow_user_id = #{followUserId,jdbcType=NUMERIC}
+    </select>
+    <select id="selectUserIdByFollowUserId" resultMap="BaseResultMap">
+        select user_id
+        from tb_follow
+        where follow_user_id = #{followUserId,jdbcType=NUMERIC}
+    </select>
 </mapper>

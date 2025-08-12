@@ -3,8 +3,10 @@ package com.etlpat.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("tb_follow")
@@ -39,5 +43,11 @@ public class Follow implements Serializable {
      * 创建时间
      */
     private LocalDateTime createTime;
+
+
+    public Follow(Long userId, Long followUserId) {
+        this.userId = userId;
+        this.followUserId = followUserId;
+    }
 
 }

@@ -19,4 +19,9 @@ public interface UserService extends IService<User> {
     Result login(LoginFormDTO loginForm);
 
     User saveUser(String phone);
+
+    Result sign();
+
+    Result signCount();
+
 }

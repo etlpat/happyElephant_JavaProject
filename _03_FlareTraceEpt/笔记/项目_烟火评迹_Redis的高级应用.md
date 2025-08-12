@@ -448,3 +448,158 @@ Lua脚本语法如下：
 异步秒杀优化的总结：
 
 ![image-20250810204905527](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250810204905527.png)
+
+
+
+
+
+
+
+## 功能模块6：其它模块
+
+#### （1）探店博客模块
+
+##### ①博客点赞功能
+
+![image-20250811110232129](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811110232129.png)
+
+
+
+##### ②点赞排行榜功能
+
+![image-20250811131052978](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811131052978.png)
+
+如下，由于点赞排行榜要根据点赞时间的先后顺序进行排序，因此选用SortedSet集合来代替Set集合。
+
+![image-20250811131656396](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811131656396.png)
+
+
+
+
+
+#### （2）好友关注模块
+
+##### ①共同关注功能
+
+![image-20250811191340173](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811191340173.png)
+
+
+
+##### ②**关注推送（Feed流）**
+
+关注推送概念：
+
+![image-20250811200343394](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811200343394.png)
+
+![image-20250811200802421](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811200802421.png)
+
+![image-20250811201115139](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811201115139.png)
+
+![image-20250811201447724](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811201447724.png)
+
+![image-20250811201756480](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811201756480.png)
+
+![image-20250811202057438](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811202057438.png)
+
+实现关注推送功能：
+
+![image-20250811202520893](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811202520893.png)
+
+![image-20250811204434352](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811204434352.png)
+
+![image-20250811222511289](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811222511289.png)
+
+![image-20250811222453316](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250811222453316.png)
+
+
+
+
+
+#### （3）附近商铺模块
+
+##### ①GEO数据结构 -- 地理坐标
+
+![image-20250812112720433](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812112720433.png)
+
+
+
+##### ②附近商铺搜索功能
+
+![image-20250812115130677](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812115130677.png)
+
+![image-20250812115745450](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812115745450.png)
+
+
+
+
+
+#### （4）用户签到模块
+
+##### ①BitMap数据结构 -- 位图
+
+![image-20250812164450070](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812164450070.png)
+
+![image-20250812164926201](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812164926201.png)
+
+
+
+##### ②签到功能
+
+![image-20250812170350695](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812170350695.png)
+
+
+
+##### ③连续签到统计功能
+
+![image-20250812183530429](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812183530429.png)
+
+![image-20250812183835319](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20250812183835319.png)
+
+
+
+
+
+
+
+## 可以写到简历上的点
+
+##### 项目介绍：
+
+基于 Spring Boot + Redis 的店铺点评 APP，实现了找店铺 => 写点评 => 看热评 => 点赞关注 => 关注 Feed 流的完整业务流程。
+
+
+
+##### 主要工作：
+
+1. 短信登录：使用 Redis 实现分布式 Session，解决集群间登录态同步问题；使用 Hash 代替 String 来存储用户信息，节约了 xx% 的内存并便于单字段的修改。（需要自己实际测试对比数据，节省内存的原因是不用保存序列化对象信息或者 JSON 的一些额外字符串）
+
+2. 店铺查询：使用 Redis 对高频访问店铺进行缓存，降低 DB 压力同时提升 90% 的数据查询性能。
+
+3. 为方便其他业务后续使用缓存，使用泛型 + 函数式编程实现了通用缓存访问静态方法，并解决了缓存雪崩、缓存穿透等问题。
+
+4. 使用常量类全局管理 Redis Key 前缀、TTL 等，保证了键空间的业务隔离，减少冲突。
+
+5. 使用 Redis 的 Geo + Hash 数据结构分类存储附近商户，并使用 Geo Search 命令实现高性能商户查询及按距离排序。
+
+6. 使用 Redis List 数据结构存储用户点赞信息，并基于 ZSet 实现 TopN 点赞排行，实测相对于 DB 查询性能提升 xx%。（需要自己实际测试对比数据）
+
+7. 使用 Redis Set 数据结构实现用户关注、共同关注功能（交集），实测相对于 DB 查询性能提升 xx%。（需要自己实际测试对比数据）
+
+8. 使用 Redis BitMap 实现用户连续签到统计功能，相对于传统关系库存储，节约 xx% 的内存并提升 xx% 的查询性能。（需要自己实际测试对比数据）
+
+9. 在系统用户量不大的前提下，基于推模式实现关注 Feed 流，保证了新点评消息的及时可达，并减少用户访问的等待时间。
+
+10. 优惠券秒杀：使用 Redis + Lua 脚本实现库存预检，并通过 Stream 队列实现订单的异步创建，解决了超卖问题、实现一人一单。实现相比传统数据库，秒杀性能提高了 xx%。（需要自己实际测试对比数据）
+
+    
+
+##### 再列举一些该项目可以扩展的点，有能力的同学可以自己尝试实现：
+
+1. 使用 Redis + Token 机制实现单点登录（补充到上述第 1 点中）
+2. 对 Redis 的所有 key 设置 N + n 的过期时间，从而合理使用内存并防止缓存雪崩；针对热点店铺缓存，使用逻辑过期（或自动续期）机制解决缓存击穿问题，防止数据库宕机。
+3. 使用 Redis 的 Geo + Hash 数据结构分类存储附近商户，并使用 Geo Search 命令实现高性能商户查询及按距离排序，实测相对于传统 DB 查询 + 业务层计算的方式，性能提升 xx%。
+4. 使用 Redis Set 数据结构实现用户关注、共同关注功能（交集），实测相对于 DB 查询性能提升 xx%，并使用 Redis AOF + 业务层日志防止关注数据丢失。（理解 AOF 和 RDB 持久化机制后再写这点）
+5. 基于 Spring Scheduler 实现对热点数据的定期检测和缓存预加载，提升用户的访问体验，并通过 Redisson 分布式锁保证集群中同一时刻的定时任务只执行一次。
+6. 关注 Feed 流可以改为推拉结合模式（活跃用户用推、普通用户用拉）
+7. 使用哨兵集群来提升 Redis 的读并发量、可用性和稳定性；或者使用 Redis 分片集群来提升 Redis 读写并发量、总存储容量，保障可用性和稳定性。
+8. 随着系统用户增多，使用 Redis HyperLogLog 代替 DB 来实现店铺和点评的 UV 统计，提高 xx% 的查询分析性能并解决 xx% 的内存空间。

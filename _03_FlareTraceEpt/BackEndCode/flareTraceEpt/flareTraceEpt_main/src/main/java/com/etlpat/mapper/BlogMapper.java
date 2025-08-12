@@ -2,6 +2,7 @@ package com.etlpat.mapper;
 
 import com.etlpat.pojo.Blog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.data.repository.query.Param;
 
 
 /**
@@ -11,7 +12,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @Entity com.etlpat.pojo.Blog
  */
 public interface BlogMapper extends BaseMapper<Blog> {
+    // 点赞数+1
+    void incrementLiked(@Param("id") Long id);
 
+    // 点赞数-1
+    void decrementLiked(@Param("id") Long id);
 }
 
 

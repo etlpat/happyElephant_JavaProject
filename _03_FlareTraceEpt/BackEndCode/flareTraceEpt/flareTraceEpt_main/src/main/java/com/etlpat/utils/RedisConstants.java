@@ -8,7 +8,7 @@ public class RedisConstants {
     public static final String LOGIN_CODE_KEY = KEY_PREFIX + "login:code:";// 手机验证码
     public static final Long LOGIN_CODE_TTL = 2L;// 验证码有效期：2分钟
     public static final String LOGIN_USER_KEY = KEY_PREFIX + "login:token:";// 登录的token
-    public static final Long LOGIN_USER_TTL = 30L;// token有效期：30分钟
+    public static final Long LOGIN_USER_TTL = 10080L;// token有效期：7天
 
     public static final Long CACHE_NULL_TTL = 2L;
 
@@ -27,6 +27,7 @@ public class RedisConstants {
 
     public static final String SECKILL_STOCK_KEY = KEY_PREFIX + "seckill:stock:";
     public static final String BLOG_LIKED_KEY = KEY_PREFIX + "blog:liked:";
+    public static final String FOLLOW_KEY = KEY_PREFIX + "follows:";
     public static final String FEED_KEY = KEY_PREFIX + "feed:";
     public static final String SHOP_GEO_KEY = KEY_PREFIX + "shop:geo:";
     public static final String USER_SIGN_KEY = KEY_PREFIX + "sign:";

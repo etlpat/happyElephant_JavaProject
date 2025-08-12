@@ -1,5 +1,6 @@
 package com.etlpat.service;
 
+import com.etlpat.dto.Result;
 import com.etlpat.pojo.Follow;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -11,4 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FollowService extends IService<Follow> {
 
+    Result follow(Long followUserId, Boolean isFollow);
+
+    Result isFollow(Long followUserId);
+
+    Result followCommons(Long id);
 }

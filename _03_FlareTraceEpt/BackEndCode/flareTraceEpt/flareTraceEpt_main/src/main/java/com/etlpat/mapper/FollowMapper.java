@@ -1,5 +1,9 @@
 package com.etlpat.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.etlpat.pojo.Follow;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,7 +15,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @Entity com.etlpat.pojo.Follow
  */
 public interface FollowMapper extends BaseMapper<Follow> {
+    int deleteByUserIdAndFollowUserId(@Param("userId") Long userId, @Param("followUserId") Long followUserId);
 
+    int countByUserIdAndFollowUserId(@Param("userId") Long userId, @Param("followUserId") Long followUserId);
+
+    List<Follow> selectUserIdByFollowUserId(@Param("followUserId") Long followUserId);
 }
 
 
